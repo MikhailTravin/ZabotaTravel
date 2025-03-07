@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20250114144540">
+	<link rel="stylesheet" href="css/style.min.css?_v=20250307133248">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -271,7 +271,7 @@
 												<div class="filter-tabs__titles drop-down-titles">
 													<div class="filter-tabs__desc">
 														<div class="filter-tabs__title">Даты</div>
-														<div class="filter-tabs__subtitle">Выберите даты</div>
+														<input class="input-calendar" value data-start="08-04-2025" data-end="14-04-2025">
 													</div>
 													<div class="filter-tabs__arrow _icon-calendar"></div>
 												</div>
@@ -285,9 +285,9 @@
 															<div class="body-filter-tabs__calendar calendar">
 																<div class="calendar__content">
 																	<div class="calendar__header">
-																		<button class="calendar__btn-prev calendar-btn _icon-arrow"></button>
+																		<button type="button" class="calendar__btn-prev calendar-btn _icon-arrow"></button>
 																		<span></span>
-																		<button class="calendar__btn-next calendar-btn _icon-arrow"></button>
+																		<button type="button" class="calendar__btn-next calendar-btn _icon-arrow"></button>
 																	</div>
 																	<div class="calendar__wrapper">
 																		<div class="calendar__days">
@@ -303,8 +303,7 @@
 																	</div>
 																</div>
 															</div>
-															<button type="button" class="body-filter-tabs__button button-mint">Выбрать
-																13 – 19 января</button>
+															<button type="button" class="body-filter-tabs__button calendar-button button-mint">Применить</button>
 														</div>
 													</div>
 												</div>
@@ -313,7 +312,8 @@
 												<div class="filter-tabs__titles drop-down-titles">
 													<div class="filter-tabs__desc">
 														<div class="filter-tabs__title">Кол-во гостей</div>
-														<div class="filter-tabs__subtitle">2 гостя</div>
+														<div class="filter-tabs__subtitle"><span>2</span> гостя
+														</div>
 													</div>
 													<div class="filter-tabs__arrow _icon-arrow"></div>
 												</div>
@@ -333,7 +333,7 @@
 																		<div class="quantitys__quantity quantity">
 																			<button type="button" class="quantity__button quantity__button_minus"></button>
 																			<div class="quantity__input">
-																				<input autocomplete="off" type="text" name="form[]" value="2">
+																				<input class="quantity-input-1" autocomplete="off" type="text" name="form[]" value="1">
 																			</div>
 																			<button type="button" class="quantity__button quantity__button_plus"></button>
 																		</div>
@@ -345,40 +345,14 @@
 																		<div class="quantitys__quantity quantity">
 																			<button type="button" class="quantity__button quantity__button_minus"></button>
 																			<div class="quantity__input">
-																				<input autocomplete="off" type="text" name="form[]" value="2">
-																			</div>
-																			<button type="button" class="quantity__button quantity__button_plus"></button>
-																		</div>
-																	</div>
-																</div>
-																<div class="quantitys__childrens">
-																	<div class="quantitys__item">
-																		<div class="quantitys__title">
-																			Возраст 1 ребенка
-																		</div>
-																		<div class="quantitys__quantity quantity">
-																			<button type="button" class="quantity__button quantity__button_minus"></button>
-																			<div class="quantity__input">
-																				<input autocomplete="off" type="text" name="form[]" value="7">
-																			</div>
-																			<button type="button" class="quantity__button quantity__button_plus"></button>
-																		</div>
-																	</div>
-																	<div class="quantitys__item">
-																		<div class="quantitys__title">
-																			Возраст 2 ребенка
-																		</div>
-																		<div class="quantitys__quantity quantity">
-																			<button type="button" class="quantity__button quantity__button_minus"></button>
-																			<div class="quantity__input">
-																				<input autocomplete="off" type="text" name="form[]" value="2">
+																				<input class="quantity-input-2" autocomplete="off" type="text" name="form[]" value="2">
 																			</div>
 																			<button type="button" class="quantity__button quantity__button_plus"></button>
 																		</div>
 																	</div>
 																</div>
 															</div>
-															<button type="button" class="body-filter-tabs__button button-mint">Применить</button>
+															<button type="button" class="body-filter-tabs__button quantity-button button-mint">Применить</button>
 														</div>
 													</div>
 												</div>
@@ -483,7 +457,7 @@
 												</div>
 											</div>
 										</div>
-										<a href="#" class="tabs__button button-mint">Найти</a>
+										<button type="button" class="tabs__button button-mint">Найти</button>
 									</div>
 									<div class="tabs__benefits benefits-tabs">
 										<div class="benefits-tabs__column">
@@ -528,7 +502,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="tabs__body">
+								<div class="tabs__body tabs-hotel">
 									<div class="tabs__filters">
 										<div class="tabs__filter filter-tabs">
 											<div class="filter-tabs__column drop-down-button">
@@ -640,7 +614,7 @@
 												<div class="filter-tabs__titles drop-down-titles">
 													<div class="filter-tabs__desc">
 														<div class="filter-tabs__title">Даты</div>
-														<div class="filter-tabs__subtitle">Выберите даты</div>
+														<input class="input-calendar" value data-start="08-04-2025" data-end="14-04-2025">
 													</div>
 													<div class="filter-tabs__arrow _icon-calendar"></div>
 												</div>
@@ -654,9 +628,9 @@
 															<div class="body-filter-tabs__calendar calendar">
 																<div class="calendar__content">
 																	<div class="calendar__header">
-																		<button class="calendar__btn-prev calendar-btn _icon-arrow"></button>
+																		<button type="button" class="calendar__btn-prev calendar-btn _icon-arrow"></button>
 																		<span></span>
-																		<button class="calendar__btn-next calendar-btn _icon-arrow"></button>
+																		<button type="button" class="calendar__btn-next calendar-btn _icon-arrow"></button>
 																	</div>
 																	<div class="calendar__wrapper">
 																		<div class="calendar__days">
@@ -672,8 +646,7 @@
 																	</div>
 																</div>
 															</div>
-															<button type="button" class="body-filter-tabs__button button-mint">Выбрать
-																13 – 19 января</button>
+															<button type="button" class="body-filter-tabs__button calendar-button button-mint">Применить</button>
 														</div>
 													</div>
 												</div>
@@ -682,7 +655,8 @@
 												<div class="filter-tabs__titles drop-down-titles">
 													<div class="filter-tabs__desc">
 														<div class="filter-tabs__title">Кол-во гостей</div>
-														<div class="filter-tabs__subtitle">2 гостя</div>
+														<div class="filter-tabs__subtitle"><span>2</span> гостя
+														</div>
 													</div>
 													<div class="filter-tabs__arrow _icon-arrow"></div>
 												</div>
@@ -702,7 +676,7 @@
 																		<div class="quantitys__quantity quantity">
 																			<button type="button" class="quantity__button quantity__button_minus"></button>
 																			<div class="quantity__input">
-																				<input autocomplete="off" type="text" name="form[]" value="2">
+																				<input class="quantity-input-1" autocomplete="off" type="text" name="form[]" value="1">
 																			</div>
 																			<button type="button" class="quantity__button quantity__button_plus"></button>
 																		</div>
@@ -714,46 +688,20 @@
 																		<div class="quantitys__quantity quantity">
 																			<button type="button" class="quantity__button quantity__button_minus"></button>
 																			<div class="quantity__input">
-																				<input autocomplete="off" type="text" name="form[]" value="2">
-																			</div>
-																			<button type="button" class="quantity__button quantity__button_plus"></button>
-																		</div>
-																	</div>
-																</div>
-																<div class="quantitys__childrens">
-																	<div class="quantitys__item">
-																		<div class="quantitys__title">
-																			Возраст 1 ребенка
-																		</div>
-																		<div class="quantitys__quantity quantity">
-																			<button type="button" class="quantity__button quantity__button_minus"></button>
-																			<div class="quantity__input">
-																				<input autocomplete="off" type="text" name="form[]" value="7">
-																			</div>
-																			<button type="button" class="quantity__button quantity__button_plus"></button>
-																		</div>
-																	</div>
-																	<div class="quantitys__item">
-																		<div class="quantitys__title">
-																			Возраст 2 ребенка
-																		</div>
-																		<div class="quantitys__quantity quantity">
-																			<button type="button" class="quantity__button quantity__button_minus"></button>
-																			<div class="quantity__input">
-																				<input autocomplete="off" type="text" name="form[]" value="2">
+																				<input class="quantity-input-2" autocomplete="off" type="text" name="form[]" value="2">
 																			</div>
 																			<button type="button" class="quantity__button quantity__button_plus"></button>
 																		</div>
 																	</div>
 																</div>
 															</div>
-															<button type="button" class="body-filter-tabs__button button-mint">Применить</button>
+															<button type="button" class="body-filter-tabs__button quantity-button button-mint">Применить</button>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-										<a href="#" class="tabs__button button-mint">Найти</a>
+										<button type="button" class="tabs__button button-mint">Найти</button>
 									</div>
 									<div class="tabs__benefits-two benefits-two-tabs">
 										<div class="benefits-two-tabs__column">
@@ -1595,6 +1543,112 @@
 											<div class="item-products__totals">
 												<div class="item-products__total">
 													от 19 400 ₽
+												</div>
+												<span>за 1 сутки</span>
+											</div>
+											<div class="item-products__list">
+												<ul>
+													<li class="_icon-check-2">Питание, лечение включено</li>
+												</ul>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="products__column filter-column filter__column_sochi">
+								<div class="products__item item-products">
+									<div class="item-products__images">
+										<picture><source srcset="img/products/image-3.webp" type="image/webp"><img loading="lazy" src="img/products/image-3.png" alt=""></picture>
+										<div class="item-products__favourites favourites">
+											<div class="item-products__favourite favourite _icon-heart"></div>
+											<div class="item-products__favourite-active favourite-active _icon-heart-active">
+											</div>
+										</div>
+										<div class="item-products__assessments">
+											<div class="item-products__rate">4.9</div>
+											<div class="item-products__reviews">5 отзывов</div>
+										</div>
+									</div>
+									<a href="#" class="item-products__content">
+										<div class="item-products__top">
+											<div class="item-products__rating rating">
+												<div class="rating__body">
+													<div class="rating__line"></div>
+													<div class="rating__activeline"></div>
+													<div class="rating__stars">
+														<div class="rating__star"></div>
+														<div class="rating__star"></div>
+														<div class="rating__star"></div>
+														<div class="rating__star"></div>
+														<div class="rating__star"></div>
+													</div>
+													<input value="4.9" type="hidden" name="rating" class="rating-input">
+												</div>
+											</div>
+											<div class="item-products__title">
+												Отель «GRAND KARAT SOCHI» / «Гранд Карат Сочи»
+											</div>
+											<div class="item-products__city">
+												г. Сочи
+											</div>
+										</div>
+										<div class="item-products__bottom">
+											<div class="item-products__totals">
+												<div class="item-products__total">
+													от 14 500 ₽
+												</div>
+												<span>за 1 сутки</span>
+											</div>
+											<div class="item-products__list">
+												<ul>
+													<li class="_icon-check-2">Питание, лечение включено</li>
+												</ul>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="products__column filter-column filter__column_essentuki">
+								<div class="products__item item-products">
+									<div class="item-products__images">
+										<picture><source srcset="img/products/image-4.webp" type="image/webp"><img loading="lazy" src="img/products/image-4.png" alt=""></picture>
+										<div class="item-products__favourites favourites">
+											<div class="item-products__favourite favourite _icon-heart"></div>
+											<div class="item-products__favourite-active favourite-active _icon-heart-active">
+											</div>
+										</div>
+										<div class="item-products__assessments">
+											<div class="item-products__rate">4.7</div>
+											<div class="item-products__reviews">17 отзывов</div>
+										</div>
+									</div>
+									<a href="#" class="item-products__content">
+										<div class="item-products__top">
+											<div class="item-products__rating rating">
+												<div class="rating__body">
+													<div class="rating__line"></div>
+													<div class="rating__activeline"></div>
+													<div class="rating__stars">
+														<div class="rating__star"></div>
+														<div class="rating__star"></div>
+														<div class="rating__star"></div>
+														<div class="rating__star"></div>
+														<div class="rating__star"></div>
+													</div>
+													<input value="4.7" type="hidden" name="rating" class="rating-input">
+												</div>
+											</div>
+											<div class="item-products__title">
+												Санаторий «Русь»
+											</div>
+											<div class="item-products__city">
+												г. Ессентуки
+											</div>
+										</div>
+										<div class="item-products__bottom">
+											<div class="item-products__totals">
+												<div class="item-products__total">
+													от 9 600 ₽
 												</div>
 												<span>за 1 сутки</span>
 											</div>
@@ -3249,7 +3303,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/app.min.js?_v=20250114144540"></script>
+	<script src="js/app.min.js?_v=20250307133248"></script>
 </body>
 
 </html>

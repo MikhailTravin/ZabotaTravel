@@ -3757,7 +3757,7 @@
                     closeEsc: true,
                     bodyLock: true,
                     hashSettings: {
-                        location: true,
+                        location: false,
                         goHash: true
                     },
                     on: {
@@ -3929,12 +3929,6 @@
                     !this.bodyLock ? bodyUnlock() : null;
                     this.isOpen = false;
                 }
-                this._removeHash();
-                if (this._selectorOpen) {
-                    this.lastClosed.selector = this.previousOpen.selector;
-                    this.lastClosed.element = this.previousOpen.element;
-                }
-                this.options.on.afterClose(this);
                 document.dispatchEvent(new CustomEvent("afterPopupClose", {
                     detail: {
                         popup: this
@@ -4150,10 +4144,7 @@
                             alert("Ошибка");
                             form.classList.remove("_sending");
                         }
-                    } else if (form.hasAttribute("data-dev")) {
-                        e.preventDefault();
-                        formSent(form);
-                    }
+                    } else if (form.hasAttribute("data-dev")) formSent(form);
                 } else {
                     e.preventDefault();
                     const formError = form.querySelector("._form-error");
@@ -4172,7 +4163,6 @@
                         popup ? flsModules.popup.open(popup) : null;
                     }
                 }), 0);
-                formValidate.formClean(form);
                 formLogging(`Форма отправлена!`);
             }
             function formLogging(message) {
@@ -4183,12 +4173,13 @@
             document.addEventListener("click", (function(e) {
                 let targetElement = e.target;
                 if (targetElement.closest(".quantity__button")) {
-                    let value = parseInt(targetElement.closest(".quantity").querySelector("input").value);
+                    let inputField = targetElement.closest(".quantity").querySelector("input");
+                    let value = parseInt(inputField.value);
                     if (targetElement.classList.contains("quantity__button_plus")) value++; else {
-                        --value;
-                        if (value < 1) value = 1;
+                        value--;
+                        if (value < 0) value = 0;
                     }
-                    targetElement.closest(".quantity").querySelector("input").value = value;
+                    inputField.value = value;
                 }
             }));
         }
@@ -4211,10 +4202,12 @@
                     ratingValue = rating.querySelector(".rating-input");
                 }
                 function setRatingActiveWidth() {
-                    const ratingActiveWidth = ratingValue.value / .05;
-                    ratingActive.style.width = `${ratingActiveWidth}%`;
+                    if (ratingValue) {
+                        const ratingActiveWidth = ratingValue.value / .05;
+                        ratingActive.style.width = `${ratingActiveWidth}%`;
+                    }
                 }
-                ratingValue.addEventListener("change", (function() {
+                if (ratingValue) ratingValue.addEventListener("change", (function() {
                     setRatingActiveWidth();
                 }));
                 function setRating(rating) {
@@ -4223,18 +4216,33 @@
                         const ratingItem = ratingItems[index];
                         ratingItem.addEventListener("mouseenter", (function(e) {
                             initRatingVars(rating);
-                            setRatingActiveWidth(ratingItem.value);
+                            const hoveredIndex = index + 1;
+                            const linew = hoveredIndex / ratingItems.length * 100;
+                            ratingActive.style.width = `${linew}%`;
+                            for (let i = 0; i <= index; i++) ratingItems[i].classList.add("hovered");
+                            for (let i = index + 1; i < ratingItems.length; i++) ratingItems[i].classList.remove("hovered");
                         }));
-                        console.log(ratingItem);
                         ratingItem.addEventListener("mouseleave", (function(e) {
-                            setRatingActiveWidth();
+                            initRatingVars(rating);
+                            let lastHoveredIndex = -1;
+                            for (let i = ratingItems.length - 1; i >= 0; i--) if (ratingItems[i].classList.contains("hovered")) {
+                                lastHoveredIndex = i;
+                                break;
+                            }
+                            if (-1 === lastHoveredIndex) if (ratingValue) setRatingActiveWidth(); else ratingActive.style.width = "0%"; else {
+                                const linew = (lastHoveredIndex + 1) / ratingItems.length * 100;
+                                ratingActive.style.width = `${linew}%`;
+                                for (let i = 0; i <= lastHoveredIndex; i++) ratingItems[i].classList.add("hovered");
+                                for (let i = lastHoveredIndex + 1; i < ratingItems.length; i++) ratingItems[i].classList.remove("hovered");
+                            }
                         }));
                         ratingItem.addEventListener("click", (function(e) {
                             initRatingVars(rating);
                             if (rating.dataset.ajax) setRatingValue(ratingItem.value, rating); else {
-                                ratingValue.value = index + 1;
+                                ratingValue.value = ratingItem.value;
                                 setRatingActiveWidth();
                             }
+                            for (let i = 0; i < ratingItems.length; i++) ratingItems[i].classList.remove("hovered");
                         }));
                     }
                 }
@@ -7671,8 +7679,8 @@
                 }
             });
         }
-        if (document.querySelector(".popup__slider")) {
-            const thumbsPopupSwiper = new core(".images-product__popup-thumb", {
+        if (document.querySelector(".popup__slider")) document.querySelectorAll(".popup__slider").forEach((n => {
+            const thumbsPopupSwiper = new core(n.querySelector(".images-product__popup-thumb"), {
                 modules: [ Navigation, Thumb, Pagination ],
                 observer: true,
                 observeParents: true,
@@ -7681,7 +7689,7 @@
                 speed: 800,
                 preloadImages: true
             });
-            new core(".images-product__slider-popup", {
+            new core(n.querySelector(".images-product__slider-popup"), {
                 modules: [ Navigation, Thumb, Pagination ],
                 thumbs: {
                     swiper: thumbsPopupSwiper
@@ -7693,15 +7701,15 @@
                 speed: 800,
                 preloadImages: true,
                 pagination: {
-                    el: ".slider-popup-pagination",
+                    el: n.querySelector(".slider-popup-pagination"),
                     type: "fraction"
                 },
                 navigation: {
-                    prevEl: ".slider-popup-arrow-prev",
-                    nextEl: ".slider-popup-arrow-next"
+                    prevEl: n.querySelector(".slider-popup-arrow-prev"),
+                    nextEl: n.querySelector(".slider-popup-arrow-next")
                 }
             });
-        }
+        }));
         if (document.querySelector(".products__slider")) new core(".products__slider", {
             observer: true,
             observeParents: true,
@@ -10259,7 +10267,7 @@ PERFORMANCE OF THIS SOFTWARE.
                     gallery,
                     galleryClass: lightgallery_es5(gallery, {
                         licenseKey: "7EC452A9-0CFD441C-BD984C7C-17C8456E",
-                        speed: 500
+                        speed: 300
                     })
                 });
             }));
@@ -10410,10 +10418,27 @@ PERFORMANCE OF THIS SOFTWARE.
                     this.closest(buttonsSelector).querySelectorAll(buttonSelector).forEach((n => {
                         n.classList.toggle(buttonActiveClass, n === this);
                     }));
-                    this.closest(filters).querySelectorAll(itemSelector).forEach((({classList: cl}) => {
-                        cl.toggle(itemHiddenClass, "all" !== filter && !cl.contains(activeItemClass));
+                    const items = this.closest(filters).querySelectorAll(itemSelector);
+                    items.forEach((({classList: cl}) => {
+                        if ("all" === filter) {
+                            const isHidden = !cl.contains(activeItemClass) && items.length > 8;
+                            cl.toggle(itemHiddenClass, isHidden);
+                            if (items.length > 8) {
+                                Array.from(items).forEach(((item, index) => {
+                                    item.classList.add(itemHiddenClass);
+                                }));
+                                Array.from(items).slice(0, 8).forEach((item => {
+                                    item.classList.remove(itemHiddenClass);
+                                }));
+                            }
+                        } else cl.toggle(itemHiddenClass, "all" !== filter && !cl.contains(activeItemClass));
                     }));
                 }
+                function initializeFilters() {
+                    const allButton = document.querySelector(`${buttonSelector}[data-filter="all"]`);
+                    if (allButton) allButton.click();
+                }
+                initializeFilters();
             }
         }
         const favourites = document.querySelectorAll(".favourites");
@@ -10452,15 +10477,22 @@ PERFORMANCE OF THIS SOFTWARE.
             }
         }
         script_scroll();
-        function calendar() {
-            const calendars = document.querySelectorAll(".calendar__main");
-            const calHeaderTitles = document.querySelectorAll(".calendar__header span");
-            calendars.forEach((calendar => {
-                calHeaderTitles.forEach((calHeaderTitle => {
+        document.addEventListener("DOMContentLoaded", (() => {
+            const calendars = document.querySelectorAll(".calendars");
+            if (calendars.length > 0) calendars.forEach((calendar => {
+                const calendarMains = calendar.querySelectorAll(".calendar__main");
+                const calHeaderTitle = calendar.querySelector(".calendar__header span");
+                const parentColumn = calendar.closest(".drop-down-button");
+                const inputStart = parentColumn.querySelector("[data-start]");
+                const inputEnd = parentColumn.querySelector("[data-end]");
+                if (!inputStart || !inputEnd) {
+                    console.error("Элементы [data-start] или [data-end] не найдены.");
+                    return;
+                }
+                calendarMains.forEach((calendarMain => {
                     const days = [ "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" ];
                     const months = [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ];
-                    let oneDay = 60 * 60 * 24 * 1e3;
-                    let todayTimestamp = Date.now() - Date.now() % oneDay + 1e3 * (new Date).getTimezoneOffset() * 60;
+                    const todayTimestamp = Date.now() - Date.now() % (24 * 60 * 60 * 1e3) + 60 * (new Date).getTimezoneOffset() * 1e3;
                     const getNumberOfDays = (year, month) => 40 - new Date(year, month, 40).getDate();
                     const getDayDetails = args => {
                         let date = args.index - args.firstDay;
@@ -10535,16 +10567,37 @@ PERFORMANCE OF THIS SOFTWARE.
                         calHeaderTitle.innerHTML = getMonthStr(month) + " " + year;
                     };
                     setHeader(year, month);
-                    const getDateStringFromTimestamp = timestamp => {
+                    const getDateStringFromTimestampStart = timestamp => {
                         let dateObject = new Date(timestamp);
-                        let month = dateObject.getMonth();
-                        let date = dateObject.getDate();
-                        return `${getMonthStr(month)} ${date}, ${dateObject.getFullYear()}`;
+                        let year = dateObject.getFullYear();
+                        let month = String(dateObject.getMonth() + 1).padStart(2, "0");
+                        let day = String(dateObject.getDate()).padStart(2, "0");
+                        return `${day}-${month}-${year}`;
+                    };
+                    const getDateStringFromTimestampEnd = timestamp => {
+                        let dateObject = new Date(timestamp);
+                        let year = dateObject.getFullYear();
+                        let month = String(dateObject.getMonth() + 1).padStart(2, "0");
+                        let day = String(dateObject.getDate()).padStart(2, "0");
+                        return `${day}-${month}-${year}`;
+                    };
+                    const updateInputValue = () => {
+                        const startValue = inputStart.dataset.start || "";
+                        const endValue = inputEnd.dataset.end || "";
+                        if (startValue && endValue) inputStart.value = `${startValue} - ${endValue}`; else if (startValue) inputStart.value = startValue; else inputStart.value = "";
                     };
                     const setDateToInput = timestamp => {
-                        getDateStringFromTimestamp(timestamp);
+                        let dateString = getDateStringFromTimestampStart(timestamp);
+                        inputStart.dataset.start = dateString;
+                        updateInputValue();
+                    };
+                    const setDateToInputEnd = timestamp => {
+                        let dateString = getDateStringFromTimestampEnd(timestamp);
+                        inputEnd.dataset.end = dateString;
+                        updateInputValue();
                     };
                     setDateToInput(todayTimestamp);
+                    setDateToInputEnd(todayTimestamp);
                     for (let i = 0; i < days.length; i++) {
                         let div = document.createElement("div"), span = document.createElement("span");
                         div.classList.add("cell_wrapper");
@@ -10558,12 +10611,19 @@ PERFORMANCE OF THIS SOFTWARE.
                             let div = document.createElement("div"), span = document.createElement("span");
                             div.classList.add("cell_wrapper");
                             div.classList.add("cal_date");
-                            0 === monthDetails[i].month && div.classList.add("current");
-                            0 === monthDetails[i].month && isCurrentDay(monthDetails[i], div);
+                            if (0 === monthDetails[i].month) {
+                                div.classList.add("current");
+                                const isPastDate = monthDetails[i].timestamp < todayTimestamp;
+                                if (isPastDate) {
+                                    div.classList.add("disabled");
+                                    div.style.pointerEvents = "none";
+                                }
+                                isCurrentDay(monthDetails[i], div);
+                            }
                             span.classList.add("cell_item");
                             span.innerText = monthDetails[i].date;
                             div.appendChild(span);
-                            calendar.appendChild(div);
+                            calendarMain.appendChild(div);
                         }
                     };
                     setCalBody(monthDetails);
@@ -10572,38 +10632,57 @@ PERFORMANCE OF THIS SOFTWARE.
                         if (btn.classList.contains("calendar__btn-prev")) offset = -1; else if (btn.classList.contains("calendar__btn-next")) offset = 1;
                         newCal = setHeaderNav(offset);
                         setHeader(newCal.year, newCal.month);
-                        calendar.innerHTML = "";
+                        calendarMain.innerHTML = "";
                         setCalBody(newCal.monthDetails);
                     };
                     let startDate = null;
                     let endDate = null;
                     const updateInput = () => {
-                        let currentDay = document.querySelector(".isCurrent");
-                        document.querySelectorAll(".cell_wrapper").forEach((cell => {
-                            if (cell.classList.contains("current")) cell.addEventListener("click", (e => {
-                                let cell_date = e.target.textContent;
-                                null !== currentDay && currentDay.classList.remove("active");
-                                for (let i = 0; i < monthDetails.length; i++) if (0 === monthDetails[i].month) if (monthDetails[i].date.toString() === cell_date) if (!startDate || startDate && endDate) {
-                                    clearSelection();
-                                    startDate = monthDetails[i].timestamp;
-                                    cell.classList.add("isSelected");
-                                } else {
-                                    endDate = monthDetails[i].timestamp;
-                                    highlightRange();
-                                }
-                            }));
+                        calendar.querySelector(".isCurrent");
+                        const calendarButton = calendar.querySelector(".calendar-button");
+                        calendar.querySelectorAll(".cell_wrapper").forEach((cell => {
+                            if (cell.classList.contains("current")) {
+                                cell.addEventListener("click", (e => {
+                                    let cell_date = e.target.textContent;
+                                    for (let i = 0; i < monthDetails.length; i++) if (0 === monthDetails[i].month && monthDetails[i].date.toString() === cell_date) {
+                                        if (!startDate || startDate && endDate) {
+                                            clearSelection();
+                                            startDate = monthDetails[i].timestamp;
+                                            cell.classList.add("isSelected");
+                                            inputStart.dataset.start = getDateStringFromTimestampStart(startDate);
+                                            inputStart.value = inputStart.dataset.start;
+                                        } else {
+                                            endDate = monthDetails[i].timestamp;
+                                            inputEnd.dataset.end = getDateStringFromTimestampEnd(endDate);
+                                            inputEnd.value = inputEnd.dataset.end;
+                                            highlightRange();
+                                        }
+                                        updateInputValue();
+                                    }
+                                }));
+                                calendarButton.addEventListener("click", (e => {
+                                    updateInputValue();
+                                    const filterTabsButtons = document.querySelectorAll(".drop-down-button");
+                                    const shadow = document.querySelector(".shadow");
+                                    shadow.classList.remove("_active");
+                                    document.documentElement.classList.remove("filter-open");
+                                    filterTabsButtons.forEach(((button, i) => {
+                                        button.classList.remove("_active");
+                                    }));
+                                }));
+                            }
                         }));
                     };
                     const clearSelection = () => {
                         startDate = null;
                         endDate = null;
-                        document.querySelectorAll(".cell_wrapper").forEach((cell => {
+                        calendar.querySelectorAll(".cell_wrapper").forEach((cell => {
                             cell.classList.remove("isSelected", "inRange");
                         }));
                     };
                     const highlightRange = () => {
                         if (startDate > endDate) [startDate, endDate] = [ endDate, startDate ];
-                        document.querySelectorAll(".cell_wrapper").forEach((cell => {
+                        calendar.querySelectorAll(".cell_wrapper").forEach((cell => {
                             if (cell.classList.contains("current")) {
                                 const cellDate = new Date(year, month, parseInt(cell.textContent)).getTime();
                                 if (cellDate === startDate || cellDate === endDate) cell.classList.add("isSelected"); else if (cellDate > startDate && cellDate < endDate) cell.classList.add("inRange");
@@ -10611,7 +10690,7 @@ PERFORMANCE OF THIS SOFTWARE.
                         }));
                     };
                     updateInput();
-                    document.querySelectorAll(".calendar-btn").forEach((btn => {
+                    calendar.querySelectorAll(".calendar-btn").forEach((btn => {
                         btn.addEventListener("click", (() => {
                             updateCalendar(btn);
                             updateInput();
@@ -10619,14 +10698,44 @@ PERFORMANCE OF THIS SOFTWARE.
                     }));
                 }));
             }));
-        }
-        calendar();
+        }));
         const shadow = document.querySelector(".shadow");
         const closes = document.querySelectorAll(".close");
         const filterTabsButtons = document.querySelectorAll(".drop-down-button");
         if (filterTabsButtons) filterTabsButtons.forEach(((button, i) => {
             const filterTabsCloseBtn = button.querySelector(".drop-down-titles");
             const filterTabsClose = document.querySelectorAll(".body-filter-tabs__close");
+            const sBtntext = button.querySelector(".filter-tabs__subtitle");
+            button.querySelector(".filter-tabs__title");
+            const options = button.querySelectorAll(".options__input");
+            const quantityButtons = button.querySelectorAll(".quantity-button");
+            quantityButtons.forEach((quantityButton => {
+                quantityButton.addEventListener("click", (function(e) {
+                    const quantityInputs_1 = button.querySelector(".quantity-input-1");
+                    const quantityInputs_2 = button.querySelector(".quantity-input-2");
+                    const quantityTitle = button.querySelector(".filter-tabs__subtitle span");
+                    const value_1 = parseFloat(quantityInputs_1.value) || 0;
+                    const value_2 = parseFloat(quantityInputs_2.value) || 0;
+                    const total = value_1 + value_2;
+                    quantityTitle.innerHTML = total;
+                    button.classList.remove("_active");
+                    shadow.classList.remove("_active");
+                    document.documentElement.classList.remove("filter-open");
+                }));
+            }));
+            options.forEach((option => {
+                option.addEventListener("change", (function(e) {
+                    const selectedText = option.labels[0]?.textContent || option.value;
+                    if (sBtntext) sBtntext.innerHTML = selectedText;
+                    options.forEach((el => {
+                        el.classList.remove("_active");
+                    }));
+                    option.classList.add("_active");
+                    button.classList.remove("_active");
+                    shadow.classList.remove("_active");
+                    document.documentElement.classList.remove("filter-open");
+                }));
+            }));
             if (filterTabsCloseBtn) filterTabsCloseBtn.addEventListener("click", (function(e) {
                 let elem_active = button.classList.contains("_active");
                 filterTabsButtons.forEach((opt => {
@@ -10726,19 +10835,27 @@ PERFORMANCE OF THIS SOFTWARE.
                 wfilterContent = Number(wfilterContent.slice(0, wfilterContent.length - 2));
                 let hfilterContent = filterContent.getBoundingClientRect().top;
                 filterFloatingButton.style.left = wfilterContent + "px";
+                filterFloatingButton.style.display = "none";
+                let timeoutId = null;
                 checkboxInput.forEach((input => {
                     function checkboxClick() {
-                        if (document.documentElement.clientWidth > 991.98) if (input.checked) {
-                            let top = input.getBoundingClientRect().top - hfilterContent - "25";
-                            filterFloatingButton.style.top = top + "px";
-                            filterFloatingButton.style.display = "block";
-                            setTimeout((function() {
-                                filterFloatingButton.style.display = "none";
-                            }), 1e4);
-                        } else {
-                            filterFloatingButton.style.top = 0;
-                            filterFloatingButton.style.display = "none";
-                        } else filterFloatingButton.style.display = "none";
+                        if (document.documentElement.clientWidth > 991.98) {
+                            if (timeoutId) clearTimeout(timeoutId);
+                            if (input.checked) {
+                                let top = input.getBoundingClientRect().top - hfilterContent - 25;
+                                filterFloatingButton.style.top = top + "px";
+                                filterFloatingButton.style.display = "block";
+                                timeoutId = setTimeout((() => {
+                                    filterFloatingButton.style.display = "none";
+                                }), 1e4);
+                            } else {
+                                let top = input.getBoundingClientRect().top - hfilterContent - 25;
+                                filterFloatingButton.style.top = top + "px";
+                                timeoutId = setTimeout((() => {
+                                    filterFloatingButton.style.display = "none";
+                                }), 1e4);
+                            }
+                        }
                     }
                     input.addEventListener("change", (function() {
                         checkboxClick();
@@ -10842,7 +10959,55 @@ PERFORMANCE OF THIS SOFTWARE.
                 input.addEventListener("change", onChange);
             }
         }
-        window["FLS"] = true;
+        document.addEventListener("DOMContentLoaded", restoreState);
+        document.querySelectorAll(".form_main_search").forEach((form => {
+            form.addEventListener("submit", saveState);
+        }));
+        function saveState() {
+            document.querySelectorAll(".form_main_search").forEach((form => {
+                const formId = form.id;
+                const dateInput = form.querySelector('input[id^="podbornum"]');
+                if (dateInput) {
+                    const dates = {
+                        start: dateInput.getAttribute("data-start"),
+                        end: dateInput.getAttribute("data-end")
+                    };
+                    localStorage.setItem(`dates_${formId}`, JSON.stringify(dates));
+                }
+                form.querySelectorAll(".filter-tabs__subtitle[data-filter-type]").forEach((item => {
+                    const filterType = item.getAttribute("data-filter-type");
+                    const key = `${formId}_${filterType}`;
+                    const value = item.textContent.trim();
+                    if (!value.startsWith("Выберите")) localStorage.setItem(key, value);
+                }));
+            }));
+        }
+        function restoreState() {
+            document.querySelectorAll(".form_main_search").forEach((form => {
+                const formId = form.id;
+                const savedDates = JSON.parse(localStorage.getItem(`dates_${formId}`));
+                const dateInput = form.querySelector('input[id^="podbornum"]');
+                if (savedDates && dateInput) {
+                    dateInput.setAttribute("data-start", savedDates.start);
+                    dateInput.setAttribute("data-end", savedDates.end);
+                    dateInput.value = `${savedDates.start} – ${savedDates.end}`;
+                }
+                form.querySelectorAll(".filter-tabs__subtitle[data-filter-type]").forEach((item => {
+                    const filterType = item.getAttribute("data-filter-type");
+                    const key = `${formId}_${filterType}`;
+                    const savedValue = localStorage.getItem(key);
+                    if (savedValue) item.textContent = savedValue;
+                }));
+            }));
+        }
+        document.body.addEventListener("click", (e => {
+            const target = e.target.closest('.filter-tabs__subtitle, input[id^="podbornum"]');
+            if (target) setTimeout((() => {
+                if (target.classList.contains("filter-tabs__subtitle")) if (target.textContent.trim().startsWith("Выберите")) target.textContent = "";
+                saveState();
+            }), 0);
+        }));
+        window["FLS"] = false;
         isWebp();
         menuInit();
         spollers();

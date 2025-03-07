@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20250114144540">
+	<link rel="stylesheet" href="css/style.min.css?_v=20250307133248">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,7 +135,7 @@
 			<div class="header__shadow"></div>
 		</header>
 		<main class="page">
-			<div class="page__search search ">
+			<div class="page__search search">
 				<div class="search__buttons">
 					<div class="search__button">
 						<div class="search__content">
@@ -159,68 +159,40 @@
 								<div class="search__close _icon-close"></div>
 							</div>
 							<div data-tabs class="search__tabs tabs">
-								<nav data-tabs-titles class="tabs__navigation scroll">
-									<div class="tabs__title _tab-active">
-										<span class="_icon-hospital">Санатории</span>
+								<div class="tabs__nav drop-down-button">
+									<div class="filter-tabs__titles drop-down-titles">
+										<div class="filter-tabs__desc">
+											<div class="filter-tabs__title">Что ищем</div>
+											<div class="filter-tabs__subtitle">Отели</div>
+										</div>
+										<div class="filter-tabs__arrow _icon-arrow"></div>
 									</div>
-									<div class="tabs__title">
-										<span class="_icon-building">Отели</span>
-									</div>
-								</nav>
+									<nav data-tabs-titles class="tabs__navigation scroll">
+										<div class="tabs__title _tab-active _icon-check-2">
+											<span class="_icon-hospital">Санатории</span>
+										</div>
+										<div class="tabs__title _icon-check-2">
+											<span class="_icon-building">Отели</span>
+										</div>
+									</nav>
+								</div>
 								<div data-tabs-body class="tabs__content">
 									<div class="tabs__body">
 										<div class="tabs__filters">
 											<div class="tabs__filter filter-tabs">
-												<div class="filter-tabs__column filter-treatment-profile drop-down-button">
-													<div class="filter-tabs__titles drop-down-titles">
-														<div class="filter-tabs__desc">
-															<div class="filter-tabs__title">Что ищем</div>
-															<div class="filter-tabs__subtitle">Отели</div>
-														</div>
-														<div class="filter-tabs__arrow _icon-arrow"></div>
-													</div>
-													<div class="filter-tabs__body body-filter-tabs">
-														<div class="body-filter-tabs__titles-mob">
-															<div class="body-filter-tabs__title-mob">Что ищем
-															</div>
-															<div class="body-filter-tabs__close _icon-close"></div>
-														</div>
-														<div data-simplebar class="body-filter-tabs__simplebar">
-															<div class="body-filter-tabs__content">
-																<div class="body-filter-tabs__column">
-																	<div class="body-filter-tabs__options options">
-																		<div class="options__item">
-																			<input checked hidden id="o_11" class="options__input" type="radio" value="11" name="option_2">
-																			<label for="o_11" class="options__label">
-																				<span class="options__text">Отели</span>
-																				<span class="options__icon _icon-check-2"></span>
-																			</label>
-																		</div>
-																		<div class="options__item">
-																			<input hidden id="o_12" class="options__input" type="radio" value="12" name="option_2">
-																			<label for="o_12" class="options__label">
-																				<span class="options__text">Санатории</span>
-																				<span class="options__icon _icon-check-2"></span>
-																			</label>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
 												<div class="filter-tabs__column drop-down-button">
 													<div class="filter-tabs__titles drop-down-titles">
 														<div class="filter-tabs__desc">
 															<div class="filter-tabs__title">Направление</div>
-															<div class="filter-tabs__subtitle">Туапсе
+															<div class="filter-tabs__subtitle">Сочи
 															</div>
 														</div>
 														<div class="filter-tabs__arrow _icon-arrow"></div>
 													</div>
 													<div class="filter-tabs__body body-filter-tabs">
 														<div class="body-filter-tabs__titles-mob">
-															<div class="body-filter-tabs__title-mob">Направления</div>
+															<div class="body-filter-tabs__title-mob">Направления
+															</div>
 															<div class="body-filter-tabs__close _icon-close"></div>
 														</div>
 														<div data-simplebar class="body-filter-tabs__simplebar">
@@ -231,7 +203,7 @@
 																	</div>
 																	<div class="body-filter-tabs__options options">
 																		<div class="options__item">
-																			<input hidden id="o_1" class="options__input" type="radio" value="1" name="option_1">
+																			<input checked hidden id="o_1" class="options__input" type="radio" value="1" name="option_1">
 																			<label for="o_1" class="options__label">
 																				<span class="options__text">Сочи</span>
 																				<span class="options__icon _icon-check-2"></span>
@@ -318,7 +290,7 @@
 													<div class="filter-tabs__titles drop-down-titles">
 														<div class="filter-tabs__desc">
 															<div class="filter-tabs__title">Даты</div>
-															<div class="filter-tabs__subtitle">13 – 19 января</div>
+															<input class="input-calendar" value data-start="08-04-2025" data-end="14-04-2025">
 														</div>
 														<div class="filter-tabs__arrow _icon-calendar"></div>
 													</div>
@@ -332,33 +304,39 @@
 																<div class="body-filter-tabs__calendar calendar">
 																	<div class="calendar__content">
 																		<div class="calendar__header">
-																			<button class="calendar__btn-prev calendar-btn _icon-arrow"></button>
+																			<button type="button" class="calendar__btn-prev calendar-btn _icon-arrow"></button>
 																			<span></span>
-																			<button class="calendar__btn-next calendar-btn _icon-arrow"></button>
+																			<button type="button" class="calendar__btn-next calendar-btn _icon-arrow"></button>
 																		</div>
 																		<div class="calendar__wrapper">
 																			<div class="calendar__days">
-																				<div class="cell_wrapper cal_days"><span class="cell_item">Пн</span>
+																				<div class="cell_wrapper cal_days">
+																					<span class="cell_item">Пн</span>
 																				</div>
-																				<div class="cell_wrapper cal_days"><span class="cell_item">Вт</span>
+																				<div class="cell_wrapper cal_days">
+																					<span class="cell_item">Вт</span>
 																				</div>
-																				<div class="cell_wrapper cal_days"><span class="cell_item">Ср</span>
+																				<div class="cell_wrapper cal_days">
+																					<span class="cell_item">Ср</span>
 																				</div>
-																				<div class="cell_wrapper cal_days"><span class="cell_item">Чт</span>
+																				<div class="cell_wrapper cal_days">
+																					<span class="cell_item">Чт</span>
 																				</div>
-																				<div class="cell_wrapper cal_days"><span class="cell_item">Пт</span>
+																				<div class="cell_wrapper cal_days">
+																					<span class="cell_item">Пт</span>
 																				</div>
-																				<div class="cell_wrapper cal_days"><span class="cell_item">Сб</span>
+																				<div class="cell_wrapper cal_days">
+																					<span class="cell_item">Сб</span>
 																				</div>
-																				<div class="cell_wrapper cal_days"><span class="cell_item">Вс</span>
+																				<div class="cell_wrapper cal_days">
+																					<span class="cell_item">Вс</span>
 																				</div>
 																			</div>
 																			<div class="calendar__main"></div>
 																		</div>
 																	</div>
 																</div>
-																<button type="button" class="body-filter-tabs__button button-mint">Выбрать
-																	13 – 19 января</button>
+																<button type="button" class="body-filter-tabs__button calendar-button button-mint">Применить</button>
 															</div>
 														</div>
 													</div>
@@ -367,7 +345,8 @@
 													<div class="filter-tabs__titles drop-down-titles">
 														<div class="filter-tabs__desc">
 															<div class="filter-tabs__title">Кол-во гостей</div>
-															<div class="filter-tabs__subtitle">2 гостя</div>
+															<div class="filter-tabs__subtitle"><span>2</span> гостя
+															</div>
 														</div>
 														<div class="filter-tabs__arrow _icon-arrow"></div>
 													</div>
@@ -387,7 +366,7 @@
 																			<div class="quantitys__quantity quantity">
 																				<button type="button" class="quantity__button quantity__button_minus"></button>
 																				<div class="quantity__input">
-																					<input autocomplete="off" type="text" name="form[]" value="2">
+																					<input class="quantity-input-1" autocomplete="off" type="text" name="form[]" value="1">
 																				</div>
 																				<button type="button" class="quantity__button quantity__button_plus"></button>
 																			</div>
@@ -399,46 +378,20 @@
 																			<div class="quantitys__quantity quantity">
 																				<button type="button" class="quantity__button quantity__button_minus"></button>
 																				<div class="quantity__input">
-																					<input autocomplete="off" type="text" name="form[]" value="2">
-																				</div>
-																				<button type="button" class="quantity__button quantity__button_plus"></button>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="quantitys__childrens">
-																		<div class="quantitys__item">
-																			<div class="quantitys__title">
-																				Возраст 1 ребенка
-																			</div>
-																			<div class="quantitys__quantity quantity">
-																				<button type="button" class="quantity__button quantity__button_minus"></button>
-																				<div class="quantity__input">
-																					<input autocomplete="off" type="text" name="form[]" value="7">
-																				</div>
-																				<button type="button" class="quantity__button quantity__button_plus"></button>
-																			</div>
-																		</div>
-																		<div class="quantitys__item">
-																			<div class="quantitys__title">
-																				Возраст 2 ребенка
-																			</div>
-																			<div class="quantitys__quantity quantity">
-																				<button type="button" class="quantity__button quantity__button_minus"></button>
-																				<div class="quantity__input">
-																					<input autocomplete="off" type="text" name="form[]" value="2">
+																					<input class="quantity-input-2" autocomplete="off" type="text" name="form[]" value="2">
 																				</div>
 																				<button type="button" class="quantity__button quantity__button_plus"></button>
 																			</div>
 																		</div>
 																	</div>
 																</div>
-																<button type="button" class="body-filter-tabs__button button-mint">Применить</button>
+																<button type="button" class="body-filter-tabs__button quantity-button button-mint">Применить</button>
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-											<a href="#" class="tabs__button button-mint">Найти</a>
+											<button type="button" class="tabs__button button-mint">Найти</button>
 										</div>
 									</div>
 									<div class="tabs__body">
@@ -553,7 +506,7 @@
 													<div class="filter-tabs__titles drop-down-titles">
 														<div class="filter-tabs__desc">
 															<div class="filter-tabs__title">Даты</div>
-															<div class="filter-tabs__subtitle">Выберите даты</div>
+															<input class="input-calendar" value data-start="08-04-2025" data-end="14-04-2025">
 														</div>
 														<div class="filter-tabs__arrow _icon-calendar"></div>
 													</div>
@@ -567,9 +520,9 @@
 																<div class="body-filter-tabs__calendar calendar">
 																	<div class="calendar__content">
 																		<div class="calendar__header">
-																			<button class="calendar__btn-prev calendar-btn _icon-arrow"></button>
+																			<button type="button" class="calendar__btn-prev calendar-btn _icon-arrow"></button>
 																			<span></span>
-																			<button class="calendar__btn-next calendar-btn _icon-arrow"></button>
+																			<button type="button" class="calendar__btn-next calendar-btn _icon-arrow"></button>
 																		</div>
 																		<div class="calendar__wrapper">
 																			<div class="calendar__days">
@@ -592,8 +545,7 @@
 																		</div>
 																	</div>
 																</div>
-																<button type="button" class="body-filter-tabs__button button-mint">Выбрать
-																	13 – 19 января</button>
+																<button type="button" class="body-filter-tabs__button calendar-button button-mint">Применить</button>
 															</div>
 														</div>
 													</div>
@@ -602,7 +554,8 @@
 													<div class="filter-tabs__titles drop-down-titles">
 														<div class="filter-tabs__desc">
 															<div class="filter-tabs__title">Кол-во гостей</div>
-															<div class="filter-tabs__subtitle">2 гостя</div>
+															<div class="filter-tabs__subtitle"><span>2</span> гостя
+															</div>
 														</div>
 														<div class="filter-tabs__arrow _icon-arrow"></div>
 													</div>
@@ -622,7 +575,7 @@
 																			<div class="quantitys__quantity quantity">
 																				<button type="button" class="quantity__button quantity__button_minus"></button>
 																				<div class="quantity__input">
-																					<input autocomplete="off" type="text" name="form[]" value="2">
+																					<input class="quantity-input-1" autocomplete="off" type="text" name="form[]" value="1">
 																				</div>
 																				<button type="button" class="quantity__button quantity__button_plus"></button>
 																			</div>
@@ -634,46 +587,20 @@
 																			<div class="quantitys__quantity quantity">
 																				<button type="button" class="quantity__button quantity__button_minus"></button>
 																				<div class="quantity__input">
-																					<input autocomplete="off" type="text" name="form[]" value="2">
-																				</div>
-																				<button type="button" class="quantity__button quantity__button_plus"></button>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="quantitys__childrens">
-																		<div class="quantitys__item">
-																			<div class="quantitys__title">
-																				Возраст 1 ребенка
-																			</div>
-																			<div class="quantitys__quantity quantity">
-																				<button type="button" class="quantity__button quantity__button_minus"></button>
-																				<div class="quantity__input">
-																					<input autocomplete="off" type="text" name="form[]" value="7">
-																				</div>
-																				<button type="button" class="quantity__button quantity__button_plus"></button>
-																			</div>
-																		</div>
-																		<div class="quantitys__item">
-																			<div class="quantitys__title">
-																				Возраст 2 ребенка
-																			</div>
-																			<div class="quantitys__quantity quantity">
-																				<button type="button" class="quantity__button quantity__button_minus"></button>
-																				<div class="quantity__input">
-																					<input autocomplete="off" type="text" name="form[]" value="2">
+																					<input class="quantity-input-2" autocomplete="off" type="text" name="form[]" value="2">
 																				</div>
 																				<button type="button" class="quantity__button quantity__button_plus"></button>
 																			</div>
 																		</div>
 																	</div>
 																</div>
-																<button type="button" class="body-filter-tabs__button button-mint">Применить</button>
+																<button type="button" class="body-filter-tabs__button quantity-button button-mint">Применить</button>
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-											<a href="#" class="tabs__button button-mint">Найти</a>
+											<button type="button" class="tabs__button button-mint">Найти</button>
 										</div>
 									</div>
 								</div>
@@ -2077,7 +2004,8 @@
 															экскурсии и т.д.
 														</p>
 													</div>
-													<a href="#" data-popup="#call" class="help__button button-colar">Связаться с нами</a>
+													<a href="#" data-popup="#call" class="help__button button-colar">Связаться с
+														нами</a>
 												</div>
 											</div>
 											<div class="left-search-result__column">
@@ -3683,7 +3611,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/app.min.js?_v=20250114144540"></script>
+	<script src="js/app.min.js?_v=20250307133248"></script>
 </body>
 
 </html>
