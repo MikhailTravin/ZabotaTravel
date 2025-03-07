@@ -9172,7 +9172,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
 
   .body-filter-tabs {
     position: fixed;
-    bottom: 0;
+    bottom: auto;
     -webkit-transform: translateY(100%);
         -ms-transform: translateY(100%);
             transform: translateY(100%);
@@ -9189,7 +9189,6 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
     border-radius: 24px 24px 0px 0px;
     background: #ffffff;
     height: calc(100vh - 56px);
-    min-height: calc(100vh - 56px);
     opacity: 1;
     pointer-events: auto;
   }
