@@ -10706,7 +10706,7 @@ PERFORMANCE OF THIS SOFTWARE.
             const filterTabsCloseBtn = button.querySelector(".drop-down-titles");
             const filterTabsClose = document.querySelectorAll(".body-filter-tabs__close");
             const sBtntext = button.querySelector(".filter-tabs__subtitle");
-            button.querySelector(".filter-tabs__title");
+            const sBtntitle = button.querySelector(".title-search-result .filter-tabs__title");
             const options = button.querySelectorAll(".options__input");
             const quantityButtons = button.querySelectorAll(".quantity-button");
             quantityButtons.forEach((quantityButton => {
@@ -10727,6 +10727,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 option.addEventListener("change", (function(e) {
                     const selectedText = option.labels[0]?.textContent || option.value;
                     if (sBtntext) sBtntext.innerHTML = selectedText;
+                    if (sBtntitle) sBtntitle.innerHTML = selectedText;
                     options.forEach((el => {
                         el.classList.remove("_active");
                     }));
