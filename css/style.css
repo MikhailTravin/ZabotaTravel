@@ -10998,6 +10998,8 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
 
   .filter-open .sorting {
     bottom: 0;
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .left-search-result__item {
