@@ -2197,6 +2197,7 @@ body::after {
 }
 
 .filter-tabs__subtitle {
+  pointer-events: none;
   font-weight: 600;
   font-size: 15px;
   line-height: 133%;
@@ -9188,9 +9189,9 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
     transition: transform 0.3s ease 0s, -webkit-transform 0.3s ease 0s;
     border-radius: 24px 24px 0px 0px;
     background: #ffffff;
-    height: calc(100vh - 56px);
-    opacity: 1;
-    pointer-events: auto;
+    height: calc(100мр - 56px);
+    opacity: 0;
+    pointer-events: none;
   }
 
   .body-filter-tabs__titles-mob {
