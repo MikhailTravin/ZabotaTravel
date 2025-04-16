@@ -3552,6 +3552,8 @@
                 if (el.closest("[data-tabs-title]")) {
                     const tabTitle = el.closest("[data-tabs-title]");
                     const tabsBlock = tabTitle.closest("[data-tabs]");
+                    const subtitle = tabsBlock.querySelector(".filter-tabs__subtitle");
+                    if (subtitle) subtitle.textContent = tabTitle.textContent.trim();
                     if (!tabTitle.classList.contains("_tab-active") && !tabsBlock.querySelector("._slide")) {
                         let tabActiveTitle = tabsBlock.querySelectorAll("[data-tabs-title]._tab-active");
                         tabActiveTitle.length ? tabActiveTitle = Array.from(tabActiveTitle).filter((item => item.closest("[data-tabs]") === tabsBlock)) : null;
@@ -7502,7 +7504,7 @@
             observeParents: true,
             slidesPerView: 4,
             spaceBetween: 24,
-            speed: 800,
+            speed: 400,
             navigation: {
                 prevEl: ".popular-destinations__arrow-prev",
                 nextEl: ".popular-destinations__arrow-next"
@@ -7541,7 +7543,7 @@
             observeParents: true,
             slidesPerView: 4,
             spaceBetween: 24,
-            speed: 800,
+            speed: 400,
             navigation: {
                 prevEl: ".sales__arrow-prev",
                 nextEl: ".sales__arrow-next"
@@ -7580,7 +7582,7 @@
             observeParents: true,
             slidesPerView: 4,
             spaceBetween: 24,
-            speed: 800,
+            speed: 400,
             navigation: {
                 prevEl: ".teams__arrow-prev",
                 nextEl: ".teams__arrow-next"
@@ -7619,7 +7621,7 @@
             observeParents: true,
             slidesPerView: 3,
             spaceBetween: 24,
-            speed: 800,
+            speed: 400,
             navigation: {
                 prevEl: ".reviews__arrow-prev",
                 nextEl: ".reviews__arrow-next"
@@ -7655,7 +7657,7 @@
                 observeParents: true,
                 slidesPerView: 6.5,
                 spaceBetween: 4,
-                speed: 800,
+                speed: 400,
                 preloadImages: true
             });
             new core(".images-product__slider", {
@@ -7667,7 +7669,7 @@
                 observeParents: true,
                 slidesPerView: 1,
                 spaceBetween: 2,
-                speed: 800,
+                speed: 400,
                 preloadImages: true,
                 pagination: {
                     el: ".images-product__pagination",
@@ -7686,7 +7688,7 @@
                 observeParents: true,
                 slidesPerView: 5.5,
                 spaceBetween: 4,
-                speed: 800,
+                speed: 400,
                 preloadImages: true
             });
             new core(n.querySelector(".images-product__slider-popup"), {
@@ -7698,7 +7700,7 @@
                 observeParents: true,
                 slidesPerView: 1,
                 spaceBetween: 2,
-                speed: 800,
+                speed: 400,
                 preloadImages: true,
                 pagination: {
                     el: n.querySelector(".slider-popup-pagination"),
@@ -7715,7 +7717,7 @@
             observeParents: true,
             slidesPerView: 3,
             spaceBetween: 16,
-            speed: 800,
+            speed: 400,
             breakpoints: {
                 0: {
                     slidesPerView: 1.2,
@@ -7743,6 +7745,80 @@
                 }
             },
             on: {}
+        });
+        if (document.querySelector(".timeline__slider")) new core(".timeline__slider", {
+            observer: true,
+            observeParents: true,
+            slidesPerView: 3.2,
+            spaceBetween: 0,
+            speed: 400,
+            preloadImages: true,
+            breakpoints: {
+                0: {
+                    slidesPerView: 1.1
+                },
+                600: {
+                    slidesPerView: 1.5
+                },
+                767.98: {
+                    slidesPerView: 2
+                },
+                991.98: {
+                    slidesPerView: 3.2
+                }
+            }
+        });
+        if (document.querySelector(".sertificates__slider")) new core(".sertificates__slider", {
+            modules: [ Navigation ],
+            observer: true,
+            observeParents: true,
+            slidesPerView: 4,
+            spaceBetween: 24,
+            speed: 400,
+            preloadImages: true,
+            navigation: {
+                prevEl: ".sertificates__arrow-prev",
+                nextEl: ".sertificates__arrow-next"
+            },
+            breakpoints: {
+                0: {
+                    slidesPerView: 1.2
+                },
+                600: {
+                    slidesPerView: 2.2
+                },
+                767.98: {
+                    slidesPerView: 3
+                },
+                991.98: {
+                    slidesPerView: 4
+                }
+            }
+        });
+        if (document.querySelector(".about-teams__slider")) new core(".about-teams__slider", {
+            modules: [ Navigation ],
+            observer: true,
+            observeParents: true,
+            slidesPerView: 1,
+            spaceBetween: 24,
+            speed: 400,
+            preloadImages: true,
+            navigation: {
+                prevEl: ".about-teams__arrow-prev",
+                nextEl: ".about-teams__arrow-next"
+            }
+        });
+        if (document.querySelector(".tabs-left-product__slider")) new core(".tabs-left-product__slider", {
+            modules: [ Navigation ],
+            observer: true,
+            observeParents: true,
+            slidesPerView: "auto",
+            spaceBetween: 0,
+            speed: 400,
+            navigation: {
+                prevEl: ".tabs-left-product__arrow-prev",
+                nextEl: ".tabs-left-product__arrow-next"
+            }
         });
         var debounce = __webpack_require__(279);
         var throttle = __webpack_require__(493);
@@ -10369,6 +10445,66 @@ PERFORMANCE OF THIS SOFTWARE.
         };
         const da = new DynamicAdapt("max");
         da.init();
+        const mapProductLocation = document.querySelector("#location-map");
+        if (mapProductLocation) {
+            if ("undefined" !== typeof ymaps) ymaps.ready((() => initLocationMap())); else console.warn("Yandex Maps API не загружено для карты #location-map");
+            function initLocationMap() {
+                try {
+                    var myMapLocation = new ymaps.Map("location-map", {
+                        center: [ 43.902283, 42.716374 ],
+                        zoom: 16,
+                        controls: [ "zoomControl" ],
+                        behaviors: [ "drag" ]
+                    }, {
+                        searchControlProvider: "yandex#search"
+                    });
+                    var myPlacemarkLocation = new ymaps.Placemark(myMapLocation.getCenter(), {
+                        latitude: 43.902283,
+                        longitude: 42.716374
+                    }, {
+                        iconLayout: "default#image",
+                        iconImageHref: "img/icons/map-location.svg",
+                        iconColor: "#ec6608",
+                        iconImageSize: [ 28, 36 ],
+                        iconImageOffset: [ 0, 0 ]
+                    });
+                    myMapLocation.geoObjects.add(myPlacemarkLocation);
+                } catch (error) {
+                    console.error("Ошибка при инициализации карты #location-map:", error);
+                }
+            }
+        }
+        const map = document.querySelector("#map");
+        if (map) {
+            if ("undefined" !== typeof ymaps) ymaps.ready((() => initMainMap())); else console.warn("Yandex Maps API не загружено для карты #map");
+            function initMainMap() {
+                try {
+                    var myMap = new ymaps.Map("map", {
+                        center: [ 44.044526, 42.85891 ],
+                        zoom: 8,
+                        controls: [ "zoomControl" ],
+                        behaviors: [ "drag" ]
+                    }, {
+                        searchControlProvider: "yandex#search"
+                    });
+                    const placemark1 = new ymaps.Placemark([ 44.039802, 43.070643 ], {}, {
+                        iconLayout: "default#image",
+                        iconImageHref: "img/icons/location.svg",
+                        iconImageSize: [ 28, 36 ],
+                        iconImageOffset: [ -14, -36 ]
+                    });
+                    const placemark2 = new ymaps.Placemark([ 44.044526, 42.85891 ], {}, {
+                        iconLayout: "default#image",
+                        iconImageHref: "img/icons/location.svg",
+                        iconImageSize: [ 28, 36 ],
+                        iconImageOffset: [ -14, -36 ]
+                    });
+                    myMap.geoObjects.add(placemark1).add(placemark2);
+                } catch (error) {
+                    console.error("Ошибка при инициализации карты #map:", error);
+                }
+            }
+        }
         const searchButton = document.querySelector(".search-header__input input");
         const search = document.querySelector(".header__search");
         const searchMobButton = document.querySelector(".header__search-mob");
@@ -10477,226 +10613,155 @@ PERFORMANCE OF THIS SOFTWARE.
             }
         }
         script_scroll();
-        document.addEventListener("DOMContentLoaded", (() => {
-            const calendars = document.querySelectorAll(".calendars");
-            if (calendars.length > 0) calendars.forEach((calendar => {
-                const calendarMains = calendar.querySelectorAll(".calendar__main");
-                const calHeaderTitle = calendar.querySelector(".calendar__header span");
-                const parentColumn = calendar.closest(".drop-down-button");
-                const inputStart = parentColumn.querySelector("[data-start]");
-                const inputEnd = parentColumn.querySelector("[data-end]");
-                if (!inputStart || !inputEnd) {
-                    console.error("Элементы [data-start] или [data-end] не найдены.");
-                    return;
+        const calendars = document.querySelectorAll(".calendars");
+        if (calendars.length > 0) calendars.forEach((calendar => {
+            const calendarMain = calendar.querySelector(".calendar__main");
+            const calHeaderTitle = calendar.querySelector(".calendar__header span");
+            const parentColumn = calendar.closest(".drop-down-button");
+            const input = parentColumn.querySelector(".input-calendar");
+            if (!input) {
+                console.error("Элемент .input-calendar не найден.");
+                return;
+            }
+            const months = [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ];
+            const todayTimestamp = Date.now() - Date.now() % (24 * 60 * 60 * 1e3);
+            let selectedDate = null;
+            const getNumberOfDays = (year, month) => new Date(year, month + 1, 0).getDate();
+            const getDayDetails = args => {
+                let date = args.index - args.firstDay;
+                let dayOfWeek = (args.index % 7 + 7) % 7;
+                let prevMonth = args.month - 1;
+                let nextMonth = args.month + 1;
+                let prevYear = args.year;
+                let nextYear = args.year;
+                if (prevMonth < 0) {
+                    prevMonth = 11;
+                    prevYear--;
                 }
-                calendarMains.forEach((calendarMain => {
-                    const days = [ "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" ];
-                    const months = [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ];
-                    const todayTimestamp = Date.now() - Date.now() % (24 * 60 * 60 * 1e3) + 60 * (new Date).getTimezoneOffset() * 1e3;
-                    const getNumberOfDays = (year, month) => 40 - new Date(year, month, 40).getDate();
-                    const getDayDetails = args => {
-                        let date = args.index - args.firstDay;
-                        let day = args.index % 7;
-                        let prevMonth = args.month - 1;
-                        let prevYear = args.year;
-                        if (prevMonth < 0) {
-                            prevMonth = 11;
-                            prevYear--;
-                        }
-                        let prevMonthNumberOfDays = getNumberOfDays(prevYear, prevMonth);
-                        let _date = (date < 0 ? prevMonthNumberOfDays + date : date % args.numberOfDays) + 1;
-                        let month = date < 0 ? -1 : date >= args.numberOfDays ? 1 : 0;
-                        let timestamp = new Date(args.year, args.month, _date).getTime();
-                        return {
-                            date: _date,
-                            day,
-                            month,
-                            timestamp,
-                            dayString: days[day]
-                        };
-                    };
-                    const getMonthDetails = (year, month) => {
-                        let firstDay = new Date(year, month).getDay();
-                        let numberOfDays = getNumberOfDays(year, month);
-                        let monthArray = [];
-                        let rows = 5;
-                        let currentDay = null;
-                        let index = 0;
-                        let cols = 7;
-                        for (let row = 0; row < rows; row++) for (let col = 0; col < cols; col++) {
-                            currentDay = getDayDetails({
-                                index,
-                                numberOfDays,
-                                firstDay,
-                                year,
-                                month
-                            });
-                            monthArray.push(currentDay);
-                            index++;
-                        }
-                        return monthArray;
-                    };
-                    let date = new Date;
-                    let year = date.getFullYear();
-                    let month = date.getMonth();
-                    let monthDetails = getMonthDetails(year, month);
-                    const isCurrentDay = (day, cell) => {
-                        if (day.timestamp === todayTimestamp) {
-                            cell.classList.add("isCurrent");
-                            cell.classList.add("active");
-                        }
-                    };
-                    const getMonthStr = month => months[Math.max(Math.min(11, month), 0)] || "Month";
-                    const setHeaderNav = offset => {
-                        month += offset;
-                        if (-1 === month) {
-                            month = 11;
-                            year--;
-                        } else if (12 === month) {
-                            month = 0;
-                            year++;
-                        }
-                        monthDetails = getMonthDetails(year, month);
-                        return {
-                            year,
-                            month,
-                            monthDetails
-                        };
-                    };
-                    const setHeader = (year, month) => {
-                        calHeaderTitle.innerHTML = getMonthStr(month) + " " + year;
-                    };
-                    setHeader(year, month);
-                    const getDateStringFromTimestampStart = timestamp => {
-                        let dateObject = new Date(timestamp);
-                        let year = dateObject.getFullYear();
-                        let month = String(dateObject.getMonth() + 1).padStart(2, "0");
-                        let day = String(dateObject.getDate()).padStart(2, "0");
-                        return `${day}-${month}-${year}`;
-                    };
-                    const getDateStringFromTimestampEnd = timestamp => {
-                        let dateObject = new Date(timestamp);
-                        let year = dateObject.getFullYear();
-                        let month = String(dateObject.getMonth() + 1).padStart(2, "0");
-                        let day = String(dateObject.getDate()).padStart(2, "0");
-                        return `${day}-${month}-${year}`;
-                    };
-                    const updateInputValue = () => {
-                        const startValue = inputStart.dataset.start || "";
-                        const endValue = inputEnd.dataset.end || "";
-                        if (startValue && endValue) inputStart.value = `${startValue} - ${endValue}`; else if (startValue) inputStart.value = startValue; else inputStart.value = "";
-                    };
-                    const setDateToInput = timestamp => {
-                        let dateString = getDateStringFromTimestampStart(timestamp);
-                        inputStart.dataset.start = dateString;
-                        updateInputValue();
-                    };
-                    const setDateToInputEnd = timestamp => {
-                        let dateString = getDateStringFromTimestampEnd(timestamp);
-                        inputEnd.dataset.end = dateString;
-                        updateInputValue();
-                    };
-                    setDateToInput(todayTimestamp);
-                    setDateToInputEnd(todayTimestamp);
-                    for (let i = 0; i < days.length; i++) {
-                        let div = document.createElement("div"), span = document.createElement("span");
-                        div.classList.add("cell_wrapper");
-                        div.classList.add("cal_days");
-                        span.classList.add("cell_item");
-                        span.innerText = days[i].slice(0, 2);
-                        div.appendChild(span);
-                    }
-                    const setCalBody = monthDetails => {
-                        for (let i = 0; i < monthDetails.length; i++) {
-                            let div = document.createElement("div"), span = document.createElement("span");
-                            div.classList.add("cell_wrapper");
-                            div.classList.add("cal_date");
-                            if (0 === monthDetails[i].month) {
-                                div.classList.add("current");
-                                const isPastDate = monthDetails[i].timestamp < todayTimestamp;
-                                if (isPastDate) {
-                                    div.classList.add("disabled");
-                                    div.style.pointerEvents = "none";
-                                }
-                                isCurrentDay(monthDetails[i], div);
-                            }
-                            span.classList.add("cell_item");
-                            span.innerText = monthDetails[i].date;
-                            div.appendChild(span);
-                            calendarMain.appendChild(div);
-                        }
-                    };
-                    setCalBody(monthDetails);
-                    const updateCalendar = btn => {
-                        let newCal, offset;
-                        if (btn.classList.contains("calendar__btn-prev")) offset = -1; else if (btn.classList.contains("calendar__btn-next")) offset = 1;
-                        newCal = setHeaderNav(offset);
-                        setHeader(newCal.year, newCal.month);
-                        calendarMain.innerHTML = "";
-                        setCalBody(newCal.monthDetails);
-                    };
-                    let startDate = null;
-                    let endDate = null;
-                    const updateInput = () => {
-                        calendar.querySelector(".isCurrent");
-                        const calendarButton = calendar.querySelector(".calendar-button");
-                        calendar.querySelectorAll(".cell_wrapper").forEach((cell => {
-                            if (cell.classList.contains("current")) {
-                                cell.addEventListener("click", (e => {
-                                    let cell_date = e.target.textContent;
-                                    for (let i = 0; i < monthDetails.length; i++) if (0 === monthDetails[i].month && monthDetails[i].date.toString() === cell_date) {
-                                        if (!startDate || startDate && endDate) {
-                                            clearSelection();
-                                            startDate = monthDetails[i].timestamp;
-                                            cell.classList.add("isSelected");
-                                            inputStart.dataset.start = getDateStringFromTimestampStart(startDate);
-                                            inputStart.value = inputStart.dataset.start;
-                                        } else {
-                                            endDate = monthDetails[i].timestamp;
-                                            inputEnd.dataset.end = getDateStringFromTimestampEnd(endDate);
-                                            inputEnd.value = inputEnd.dataset.end;
-                                            highlightRange();
-                                        }
-                                        updateInputValue();
-                                    }
-                                }));
-                                calendarButton.addEventListener("click", (e => {
-                                    updateInputValue();
-                                    const filterTabsButtons = document.querySelectorAll(".drop-down-button");
-                                    const shadow = document.querySelector(".shadow");
-                                    shadow.classList.remove("_active");
-                                    document.documentElement.classList.remove("filter-open");
-                                    filterTabsButtons.forEach(((button, i) => {
-                                        button.classList.remove("_active");
-                                    }));
-                                }));
-                            }
-                        }));
-                    };
-                    const clearSelection = () => {
-                        startDate = null;
-                        endDate = null;
-                        calendar.querySelectorAll(".cell_wrapper").forEach((cell => {
-                            cell.classList.remove("isSelected", "inRange");
-                        }));
-                    };
-                    const highlightRange = () => {
-                        if (startDate > endDate) [startDate, endDate] = [ endDate, startDate ];
-                        calendar.querySelectorAll(".cell_wrapper").forEach((cell => {
-                            if (cell.classList.contains("current")) {
-                                const cellDate = new Date(year, month, parseInt(cell.textContent)).getTime();
-                                if (cellDate === startDate || cellDate === endDate) cell.classList.add("isSelected"); else if (cellDate > startDate && cellDate < endDate) cell.classList.add("inRange");
-                            }
-                        }));
-                    };
-                    updateInput();
-                    calendar.querySelectorAll(".calendar-btn").forEach((btn => {
-                        btn.addEventListener("click", (() => {
-                            updateCalendar(btn);
-                            updateInput();
-                        }));
-                    }));
+                if (nextMonth > 11) {
+                    nextMonth = 0;
+                    nextYear++;
+                }
+                let prevMonthDays = getNumberOfDays(prevYear, prevMonth);
+                let currentMonthDays = getNumberOfDays(args.year, args.month);
+                let displayDate, displayMonth, displayYear;
+                if (date < 0) {
+                    displayDate = prevMonthDays + date + 1;
+                    displayMonth = prevMonth;
+                    displayYear = prevYear;
+                } else if (date >= currentMonthDays) {
+                    displayDate = date - currentMonthDays + 1;
+                    displayMonth = nextMonth;
+                    displayYear = nextYear;
+                } else {
+                    displayDate = date + 1;
+                    displayMonth = args.month;
+                    displayYear = args.year;
+                }
+                let timestamp = new Date(Date.UTC(displayYear, displayMonth, displayDate)).getTime();
+                return {
+                    date: displayDate,
+                    day: dayOfWeek,
+                    month: displayMonth === args.month ? 0 : displayMonth < args.month ? -1 : 1,
+                    timestamp
+                };
+            };
+            const getMonthDetails = (year, month) => {
+                let firstDay = new Date(Date.UTC(year, month, 1)).getUTCDay();
+                firstDay = 0 === firstDay ? 6 : firstDay - 1;
+                let numberOfDays = getNumberOfDays(year, month);
+                let monthArray = [];
+                for (let i = 0; i < 42; i++) monthArray.push(getDayDetails({
+                    index: i,
+                    numberOfDays,
+                    firstDay,
+                    year,
+                    month
                 }));
+                return monthArray;
+            };
+            let date = new Date;
+            let year = date.getFullYear();
+            let month = date.getMonth();
+            let monthDetails = getMonthDetails(year, month);
+            const setCalBody = monthDetails => {
+                calendarMain.innerHTML = "";
+                monthDetails.forEach((day => {
+                    let div = document.createElement("div"), span = document.createElement("span");
+                    div.classList.add("cell_wrapper");
+                    div.classList.add("cal_date");
+                    if (0 === day.month) div.classList.add("current"); else if (-1 === day.month) div.classList.add("prev-month"); else if (1 === day.month) div.classList.add("next-month");
+                    if (day.timestamp === todayTimestamp && 0 === day.month) div.classList.add("isCurrent");
+                    if (day.timestamp < todayTimestamp) {
+                        div.classList.add("disabled");
+                        div.style.pointerEvents = "none";
+                    }
+                    span.classList.add("cell_item");
+                    span.innerText = day.date;
+                    div.setAttribute("data-timestamp", day.timestamp);
+                    div.appendChild(span);
+                    calendarMain.appendChild(div);
+                }));
+            };
+            const setHeader = (year, month) => {
+                calHeaderTitle.innerHTML = `${months[month]} ${year}`;
+            };
+            const navigateMonth = offset => {
+                month += offset;
+                if (-1 === month) {
+                    month = 11;
+                    year--;
+                } else if (12 === month) {
+                    month = 0;
+                    year++;
+                }
+                monthDetails = getMonthDetails(year, month);
+                setHeader(year, month);
+                setCalBody(monthDetails);
+            };
+            setHeader(year, month);
+            setCalBody(monthDetails);
+            calendar.querySelectorAll(".calendar-btn").forEach((btn => {
+                btn.addEventListener("click", (() => {
+                    let offset = btn.classList.contains("calendar__btn-prev") ? -1 : 1;
+                    navigateMonth(offset);
+                }));
+            }));
+            const clearSelection = () => {
+                selectedDate = null;
+                calendar.querySelectorAll(".cell_wrapper").forEach((cell => {
+                    cell.classList.remove("isSelected");
+                }));
+            };
+            const updateInputValue = timestamp => {
+                const dateString = getDateStringFromTimestamp(timestamp);
+                input.value = dateString;
+                input.dataset[input.hasAttribute("data-start") ? "start" : "end"] = dateString;
+            };
+            const getDateStringFromTimestamp = timestamp => {
+                let dateObject = new Date(timestamp);
+                let year = dateObject.getUTCFullYear();
+                let month = String(dateObject.getUTCMonth() + 1).padStart(2, "0");
+                let day = String(dateObject.getUTCDate()).padStart(2, "0");
+                return `${day}-${month}-${year}`;
+            };
+            const closeCalendar = () => {
+                const filterTabsButtons = document.querySelectorAll(".drop-down-button");
+                const shadow = document.querySelector(".shadow");
+                shadow.classList.remove("_active");
+                document.documentElement.classList.remove("filter-open");
+                filterTabsButtons.forEach((button => button.classList.remove("_active")));
+            };
+            calendarMain.addEventListener("click", (e => {
+                const target = e.target.closest(".cell_wrapper.current");
+                if (!target || target.classList.contains("disabled")) return;
+                const cellTimestamp = parseInt(target.getAttribute("data-timestamp"));
+                if (!cellTimestamp) return;
+                clearSelection();
+                selectedDate = cellTimestamp;
+                target.classList.add("isSelected");
+                updateInputValue(selectedDate);
+                closeCalendar();
             }));
         }));
         const shadow = document.querySelector(".shadow");
@@ -11008,6 +11073,62 @@ PERFORMANCE OF THIS SOFTWARE.
                 saveState();
             }), 0);
         }));
+        const organizationalResponseMore = document.querySelectorAll(".organizational-response__more");
+        if (organizationalResponseMore) organizationalResponseMore.forEach((more => {
+            more.addEventListener("click", (function(e) {
+                const responseBlock = this.closest(".organizational-response");
+                const content = responseBlock.querySelector(".organizational-response__content");
+                const spans = this.querySelectorAll("span");
+                content.classList.toggle("_active");
+                spans[0].style.display = content.classList.contains("_active") ? "none" : "inline";
+                spans[1].style.display = content.classList.contains("_active") ? "inline" : "none";
+            }));
+        }));
+        const ratings = document.querySelectorAll("[data-rating]");
+        if (ratings) {
+            ratings.forEach((rating => {
+                const ratingValue = +rating.dataset.ratingValue;
+                const ratingSize = +rating.dataset.ratingSize ? +rating.dataset.ratingSize : 5;
+                formRatingInit(rating, ratingSize);
+                ratingValue ? formRatingSet(rating, ratingValue) : null;
+                document.addEventListener("click", formRatingAction);
+            }));
+            function formRatingAction(e) {
+                const targetElement = e.target;
+                if (targetElement.closest(".rating-hover__input")) {
+                    const currentElement = targetElement.closest(".rating-hover__input");
+                    const ratingValue = +currentElement.value;
+                    const rating = currentElement.closest(".rating-hover");
+                    const ratingSet = "set" === rating.dataset.rating;
+                    ratingSet ? formRatingGet(rating, ratingValue) : null;
+                }
+            }
+            function formRatingInit(rating, ratingSize) {
+                let ratingItems = ``;
+                for (let index = 0; index < ratingSize; index++) {
+                    0 === index ? ratingItems += `<div class="rating-hover__items">` : null;
+                    ratingItems += `\n\t\t\t\t<label class="rating-hover__item">\n\t\t\t\t\t<input class="rating-hover__input" type="radio" name="rating" value="${index + 1}">\n\t\t\t\t</label>`;
+                    index === ratingSize ? ratingItems += `</div">` : null;
+                }
+                rating.insertAdjacentHTML("beforeend", ratingItems);
+            }
+            function formRatingGet(rating, ratingValue) {
+                const resultRating = ratingValue;
+                formRatingSet(rating, resultRating);
+            }
+            function formRatingSet(rating, value) {
+                const ratingItems = rating.querySelectorAll(".rating-hover__item");
+                const resultFullItems = parseInt(value);
+                const resultPartItem = value - resultFullItems;
+                rating.hasAttribute("data-rating-title") ? rating.title = value : null;
+                ratingItems.forEach(((ratingItem, index) => {
+                    ratingItem.classList.remove("rating-hover__item--active");
+                    ratingItem.querySelector("span") ? ratingItems[index].querySelector("span").remove() : null;
+                    if (index <= resultFullItems - 1) ratingItem.classList.add("rating-hover__item--active");
+                    if (index === resultFullItems && resultPartItem) ratingItem.insertAdjacentHTML("beforeend", `<span style="width:${100 * resultPartItem}%"></span>`);
+                }));
+            }
+        }
         window["FLS"] = false;
         isWebp();
         menuInit();
