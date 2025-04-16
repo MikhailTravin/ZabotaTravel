@@ -7289,11 +7289,8 @@
             slidesPerView: 4,
             spaceBetween: 24,
             speed: 400,
-            touchStartPreventDefault: false,
             touchRatio: 1,
             simulateTouch: true,
-            grabCursor: true,
-            shortSwipes: false,
             navigation: {
                 prevEl: ".popular-destinations__arrow-prev",
                 nextEl: ".popular-destinations__arrow-next"
@@ -7333,11 +7330,6 @@
             slidesPerView: 4,
             spaceBetween: 24,
             speed: 400,
-            touchStartPreventDefault: false,
-            touchRatio: 1,
-            simulateTouch: true,
-            grabCursor: true,
-            shortSwipes: false,
             navigation: {
                 prevEl: ".sales__arrow-prev",
                 nextEl: ".sales__arrow-next"
@@ -7377,11 +7369,6 @@
             slidesPerView: 4,
             spaceBetween: 24,
             speed: 400,
-            touchStartPreventDefault: false,
-            touchRatio: 1,
-            simulateTouch: true,
-            grabCursor: true,
-            shortSwipes: false,
             navigation: {
                 prevEl: ".teams__arrow-prev",
                 nextEl: ".teams__arrow-next"
@@ -7421,11 +7408,6 @@
             slidesPerView: 3,
             spaceBetween: 24,
             speed: 400,
-            touchStartPreventDefault: false,
-            touchRatio: 1,
-            simulateTouch: true,
-            grabCursor: true,
-            shortSwipes: false,
             navigation: {
                 prevEl: ".reviews__arrow-prev",
                 nextEl: ".reviews__arrow-next"
@@ -7462,12 +7444,7 @@
                 slidesPerView: 6.5,
                 spaceBetween: 4,
                 speed: 400,
-                preloadImages: true,
-                touchStartPreventDefault: false,
-                touchRatio: 1,
-                simulateTouch: true,
-                grabCursor: true,
-                shortSwipes: false
+                preloadImages: true
             });
             new core(".images-product__slider", {
                 modules: [ Navigation, Thumb, Pagination ],
@@ -7480,11 +7457,6 @@
                 spaceBetween: 2,
                 speed: 400,
                 preloadImages: true,
-                touchStartPreventDefault: false,
-                touchRatio: 1,
-                simulateTouch: true,
-                grabCursor: true,
-                shortSwipes: false,
                 pagination: {
                     el: ".images-product__pagination",
                     type: "fraction"
@@ -7503,12 +7475,7 @@
                 slidesPerView: 5.5,
                 spaceBetween: 4,
                 speed: 400,
-                preloadImages: true,
-                touchStartPreventDefault: false,
-                touchRatio: 1,
-                simulateTouch: true,
-                grabCursor: true,
-                shortSwipes: false
+                preloadImages: true
             });
             new core(n.querySelector(".images-product__slider-popup"), {
                 modules: [ Navigation, Thumb, Pagination ],
@@ -7521,11 +7488,6 @@
                 spaceBetween: 2,
                 speed: 400,
                 preloadImages: true,
-                touchStartPreventDefault: false,
-                touchRatio: 1,
-                simulateTouch: true,
-                grabCursor: true,
-                shortSwipes: false,
                 pagination: {
                     el: n.querySelector(".slider-popup-pagination"),
                     type: "fraction"
@@ -7542,11 +7504,6 @@
             slidesPerView: 3,
             spaceBetween: 16,
             speed: 400,
-            touchStartPreventDefault: false,
-            touchRatio: 1,
-            simulateTouch: true,
-            grabCursor: true,
-            shortSwipes: false,
             breakpoints: {
                 0: {
                     slidesPerView: 1.2,
@@ -7582,11 +7539,6 @@
             spaceBetween: 0,
             speed: 400,
             preloadImages: true,
-            touchStartPreventDefault: false,
-            touchRatio: 1,
-            simulateTouch: true,
-            grabCursor: true,
-            shortSwipes: false,
             breakpoints: {
                 0: {
                     slidesPerView: 1.1
@@ -7610,11 +7562,6 @@
             spaceBetween: 24,
             speed: 400,
             preloadImages: true,
-            touchStartPreventDefault: false,
-            touchRatio: 1,
-            simulateTouch: true,
-            grabCursor: true,
-            shortSwipes: false,
             navigation: {
                 prevEl: ".sertificates__arrow-prev",
                 nextEl: ".sertificates__arrow-next"
@@ -7642,11 +7589,6 @@
             spaceBetween: 24,
             speed: 400,
             preloadImages: true,
-            touchStartPreventDefault: false,
-            touchRatio: 1,
-            simulateTouch: true,
-            grabCursor: true,
-            shortSwipes: false,
             navigation: {
                 prevEl: ".about-teams__arrow-prev",
                 nextEl: ".about-teams__arrow-next"
@@ -7659,11 +7601,6 @@
             slidesPerView: "auto",
             spaceBetween: 0,
             speed: 400,
-            touchStartPreventDefault: false,
-            touchRatio: 1,
-            simulateTouch: true,
-            grabCursor: true,
-            shortSwipes: false,
             navigation: {
                 prevEl: ".tabs-left-product__arrow-prev",
                 nextEl: ".tabs-left-product__arrow-next"
