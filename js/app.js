@@ -7505,6 +7505,8 @@
             slidesPerView: 4,
             spaceBetween: 24,
             speed: 400,
+            touchRatio: 1,
+            simulateTouch: true,
             navigation: {
                 prevEl: ".popular-destinations__arrow-prev",
                 nextEl: ".popular-destinations__arrow-next"
