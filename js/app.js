@@ -1,5 +1,9 @@
 (() => {
     var __webpack_modules__ = {
+        807: module => {
+            var canUseDOM = !!("undefined" !== typeof window && window.document && window.document.createElement);
+            module.exports = canUseDOM;
+        },
         125: module => {
             /*!
  * dist/inputmask.min
@@ -3021,216 +3025,6 @@
                     }(), a;
                 }();
             }));
-        },
-        705: (module, __unused_webpack_exports, __webpack_require__) => {
-            var root = __webpack_require__(639);
-            var Symbol = root.Symbol;
-            module.exports = Symbol;
-        },
-        239: (module, __unused_webpack_exports, __webpack_require__) => {
-            var Symbol = __webpack_require__(705), getRawTag = __webpack_require__(607), objectToString = __webpack_require__(333);
-            var nullTag = "[object Null]", undefinedTag = "[object Undefined]";
-            var symToStringTag = Symbol ? Symbol.toStringTag : void 0;
-            function baseGetTag(value) {
-                if (null == value) return void 0 === value ? undefinedTag : nullTag;
-                return symToStringTag && symToStringTag in Object(value) ? getRawTag(value) : objectToString(value);
-            }
-            module.exports = baseGetTag;
-        },
-        561: (module, __unused_webpack_exports, __webpack_require__) => {
-            var trimmedEndIndex = __webpack_require__(990);
-            var reTrimStart = /^\s+/;
-            function baseTrim(string) {
-                return string ? string.slice(0, trimmedEndIndex(string) + 1).replace(reTrimStart, "") : string;
-            }
-            module.exports = baseTrim;
-        },
-        957: (module, __unused_webpack_exports, __webpack_require__) => {
-            var freeGlobal = "object" == typeof __webpack_require__.g && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
-            module.exports = freeGlobal;
-        },
-        607: (module, __unused_webpack_exports, __webpack_require__) => {
-            var Symbol = __webpack_require__(705);
-            var objectProto = Object.prototype;
-            var hasOwnProperty = objectProto.hasOwnProperty;
-            var nativeObjectToString = objectProto.toString;
-            var symToStringTag = Symbol ? Symbol.toStringTag : void 0;
-            function getRawTag(value) {
-                var isOwn = hasOwnProperty.call(value, symToStringTag), tag = value[symToStringTag];
-                try {
-                    value[symToStringTag] = void 0;
-                    var unmasked = true;
-                } catch (e) {}
-                var result = nativeObjectToString.call(value);
-                if (unmasked) if (isOwn) value[symToStringTag] = tag; else delete value[symToStringTag];
-                return result;
-            }
-            module.exports = getRawTag;
-        },
-        333: module => {
-            var objectProto = Object.prototype;
-            var nativeObjectToString = objectProto.toString;
-            function objectToString(value) {
-                return nativeObjectToString.call(value);
-            }
-            module.exports = objectToString;
-        },
-        639: (module, __unused_webpack_exports, __webpack_require__) => {
-            var freeGlobal = __webpack_require__(957);
-            var freeSelf = "object" == typeof self && self && self.Object === Object && self;
-            var root = freeGlobal || freeSelf || Function("return this")();
-            module.exports = root;
-        },
-        990: module => {
-            var reWhitespace = /\s/;
-            function trimmedEndIndex(string) {
-                var index = string.length;
-                while (index-- && reWhitespace.test(string.charAt(index))) ;
-                return index;
-            }
-            module.exports = trimmedEndIndex;
-        },
-        279: (module, __unused_webpack_exports, __webpack_require__) => {
-            var isObject = __webpack_require__(218), now = __webpack_require__(771), toNumber = __webpack_require__(841);
-            var FUNC_ERROR_TEXT = "Expected a function";
-            var nativeMax = Math.max, nativeMin = Math.min;
-            function debounce(func, wait, options) {
-                var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
-                if ("function" != typeof func) throw new TypeError(FUNC_ERROR_TEXT);
-                wait = toNumber(wait) || 0;
-                if (isObject(options)) {
-                    leading = !!options.leading;
-                    maxing = "maxWait" in options;
-                    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
-                    trailing = "trailing" in options ? !!options.trailing : trailing;
-                }
-                function invokeFunc(time) {
-                    var args = lastArgs, thisArg = lastThis;
-                    lastArgs = lastThis = void 0;
-                    lastInvokeTime = time;
-                    result = func.apply(thisArg, args);
-                    return result;
-                }
-                function leadingEdge(time) {
-                    lastInvokeTime = time;
-                    timerId = setTimeout(timerExpired, wait);
-                    return leading ? invokeFunc(time) : result;
-                }
-                function remainingWait(time) {
-                    var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, timeWaiting = wait - timeSinceLastCall;
-                    return maxing ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
-                }
-                function shouldInvoke(time) {
-                    var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime;
-                    return void 0 === lastCallTime || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
-                }
-                function timerExpired() {
-                    var time = now();
-                    if (shouldInvoke(time)) return trailingEdge(time);
-                    timerId = setTimeout(timerExpired, remainingWait(time));
-                }
-                function trailingEdge(time) {
-                    timerId = void 0;
-                    if (trailing && lastArgs) return invokeFunc(time);
-                    lastArgs = lastThis = void 0;
-                    return result;
-                }
-                function cancel() {
-                    if (void 0 !== timerId) clearTimeout(timerId);
-                    lastInvokeTime = 0;
-                    lastArgs = lastCallTime = lastThis = timerId = void 0;
-                }
-                function flush() {
-                    return void 0 === timerId ? result : trailingEdge(now());
-                }
-                function debounced() {
-                    var time = now(), isInvoking = shouldInvoke(time);
-                    lastArgs = arguments;
-                    lastThis = this;
-                    lastCallTime = time;
-                    if (isInvoking) {
-                        if (void 0 === timerId) return leadingEdge(lastCallTime);
-                        if (maxing) {
-                            clearTimeout(timerId);
-                            timerId = setTimeout(timerExpired, wait);
-                            return invokeFunc(lastCallTime);
-                        }
-                    }
-                    if (void 0 === timerId) timerId = setTimeout(timerExpired, wait);
-                    return result;
-                }
-                debounced.cancel = cancel;
-                debounced.flush = flush;
-                return debounced;
-            }
-            module.exports = debounce;
-        },
-        218: module => {
-            function isObject(value) {
-                var type = typeof value;
-                return null != value && ("object" == type || "function" == type);
-            }
-            module.exports = isObject;
-        },
-        5: module => {
-            function isObjectLike(value) {
-                return null != value && "object" == typeof value;
-            }
-            module.exports = isObjectLike;
-        },
-        448: (module, __unused_webpack_exports, __webpack_require__) => {
-            var baseGetTag = __webpack_require__(239), isObjectLike = __webpack_require__(5);
-            var symbolTag = "[object Symbol]";
-            function isSymbol(value) {
-                return "symbol" == typeof value || isObjectLike(value) && baseGetTag(value) == symbolTag;
-            }
-            module.exports = isSymbol;
-        },
-        771: (module, __unused_webpack_exports, __webpack_require__) => {
-            var root = __webpack_require__(639);
-            var now = function() {
-                return root.Date.now();
-            };
-            module.exports = now;
-        },
-        493: (module, __unused_webpack_exports, __webpack_require__) => {
-            var debounce = __webpack_require__(279), isObject = __webpack_require__(218);
-            var FUNC_ERROR_TEXT = "Expected a function";
-            function throttle(func, wait, options) {
-                var leading = true, trailing = true;
-                if ("function" != typeof func) throw new TypeError(FUNC_ERROR_TEXT);
-                if (isObject(options)) {
-                    leading = "leading" in options ? !!options.leading : leading;
-                    trailing = "trailing" in options ? !!options.trailing : trailing;
-                }
-                return debounce(func, wait, {
-                    leading,
-                    maxWait: wait,
-                    trailing
-                });
-            }
-            module.exports = throttle;
-        },
-        841: (module, __unused_webpack_exports, __webpack_require__) => {
-            var baseTrim = __webpack_require__(561), isObject = __webpack_require__(218), isSymbol = __webpack_require__(448);
-            var NAN = 0 / 0;
-            var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-            var reIsBinary = /^0b[01]+$/i;
-            var reIsOctal = /^0o[0-7]+$/i;
-            var freeParseInt = parseInt;
-            function toNumber(value) {
-                if ("number" == typeof value) return value;
-                if (isSymbol(value)) return NAN;
-                if (isObject(value)) {
-                    var other = "function" == typeof value.valueOf ? value.valueOf() : value;
-                    value = isObject(other) ? other + "" : other;
-                }
-                if ("string" != typeof value) return 0 === value ? value : +value;
-                value = baseTrim(value);
-                var isBinary = reIsBinary.test(value);
-                return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
-            }
-            module.exports = toNumber;
         }
     };
     var __webpack_module_cache__ = {};
@@ -3243,16 +3037,6 @@
         __webpack_modules__[moduleId](module, module.exports, __webpack_require__);
         return module.exports;
     }
-    (() => {
-        __webpack_require__.g = function() {
-            if ("object" === typeof globalThis) return globalThis;
-            try {
-                return this || new Function("return this")();
-            } catch (e) {
-                if ("object" === typeof window) return window;
-            }
-        }();
-    })();
     (() => {
         "use strict";
         const flsModules = {};
@@ -7822,8 +7606,177 @@
                 nextEl: ".tabs-left-product__arrow-next"
             }
         });
-        var debounce = __webpack_require__(279);
-        var throttle = __webpack_require__(493);
+        var can_use_dom = __webpack_require__(807);
+        function isObject_isObject(value) {
+            var type = typeof value;
+            return null != value && ("object" == type || "function" == type);
+        }
+        const lodash_es_isObject = isObject_isObject;
+        var freeGlobal = "object" == typeof global && global && global.Object === Object && global;
+        const _freeGlobal = freeGlobal;
+        var freeSelf = "object" == typeof self && self && self.Object === Object && self;
+        var root = _freeGlobal || freeSelf || Function("return this")();
+        const _root = root;
+        var now_now = function() {
+            return _root.Date.now();
+        };
+        const lodash_es_now = now_now;
+        var reWhitespace = /\s/;
+        function trimmedEndIndex(string) {
+            var index = string.length;
+            while (index-- && reWhitespace.test(string.charAt(index))) ;
+            return index;
+        }
+        const _trimmedEndIndex = trimmedEndIndex;
+        var reTrimStart = /^\s+/;
+        function baseTrim(string) {
+            return string ? string.slice(0, _trimmedEndIndex(string) + 1).replace(reTrimStart, "") : string;
+        }
+        const _baseTrim = baseTrim;
+        var Symbol = _root.Symbol;
+        const _Symbol = Symbol;
+        var objectProto = Object.prototype;
+        var _getRawTag_hasOwnProperty = objectProto.hasOwnProperty;
+        var nativeObjectToString = objectProto.toString;
+        var symToStringTag = _Symbol ? _Symbol.toStringTag : void 0;
+        function getRawTag(value) {
+            var isOwn = _getRawTag_hasOwnProperty.call(value, symToStringTag), tag = value[symToStringTag];
+            try {
+                value[symToStringTag] = void 0;
+                var unmasked = true;
+            } catch (e) {}
+            var result = nativeObjectToString.call(value);
+            if (unmasked) if (isOwn) value[symToStringTag] = tag; else delete value[symToStringTag];
+            return result;
+        }
+        const _getRawTag = getRawTag;
+        var _objectToString_objectProto = Object.prototype;
+        var _objectToString_nativeObjectToString = _objectToString_objectProto.toString;
+        function objectToString(value) {
+            return _objectToString_nativeObjectToString.call(value);
+        }
+        const _objectToString = objectToString;
+        var nullTag = "[object Null]", undefinedTag = "[object Undefined]";
+        var _baseGetTag_symToStringTag = _Symbol ? _Symbol.toStringTag : void 0;
+        function baseGetTag(value) {
+            if (null == value) return void 0 === value ? undefinedTag : nullTag;
+            return _baseGetTag_symToStringTag && _baseGetTag_symToStringTag in Object(value) ? _getRawTag(value) : _objectToString(value);
+        }
+        const _baseGetTag = baseGetTag;
+        function isObjectLike(value) {
+            return null != value && "object" == typeof value;
+        }
+        const lodash_es_isObjectLike = isObjectLike;
+        var symbolTag = "[object Symbol]";
+        function isSymbol(value) {
+            return "symbol" == typeof value || lodash_es_isObjectLike(value) && _baseGetTag(value) == symbolTag;
+        }
+        const lodash_es_isSymbol = isSymbol;
+        var NAN = 0 / 0;
+        var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+        var reIsBinary = /^0b[01]+$/i;
+        var reIsOctal = /^0o[0-7]+$/i;
+        var freeParseInt = parseInt;
+        function toNumber(value) {
+            if ("number" == typeof value) return value;
+            if (lodash_es_isSymbol(value)) return NAN;
+            if (lodash_es_isObject(value)) {
+                var other = "function" == typeof value.valueOf ? value.valueOf() : value;
+                value = lodash_es_isObject(other) ? other + "" : other;
+            }
+            if ("string" != typeof value) return 0 === value ? value : +value;
+            value = _baseTrim(value);
+            var isBinary = reIsBinary.test(value);
+            return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+        }
+        const lodash_es_toNumber = toNumber;
+        var FUNC_ERROR_TEXT = "Expected a function";
+        var nativeMax = Math.max, nativeMin = Math.min;
+        function debounce(func, wait, options) {
+            var lastArgs, lastThis, maxWait, result, timerId, lastCallTime, lastInvokeTime = 0, leading = false, maxing = false, trailing = true;
+            if ("function" != typeof func) throw new TypeError(FUNC_ERROR_TEXT);
+            wait = lodash_es_toNumber(wait) || 0;
+            if (lodash_es_isObject(options)) {
+                leading = !!options.leading;
+                maxing = "maxWait" in options;
+                maxWait = maxing ? nativeMax(lodash_es_toNumber(options.maxWait) || 0, wait) : maxWait;
+                trailing = "trailing" in options ? !!options.trailing : trailing;
+            }
+            function invokeFunc(time) {
+                var args = lastArgs, thisArg = lastThis;
+                lastArgs = lastThis = void 0;
+                lastInvokeTime = time;
+                result = func.apply(thisArg, args);
+                return result;
+            }
+            function leadingEdge(time) {
+                lastInvokeTime = time;
+                timerId = setTimeout(timerExpired, wait);
+                return leading ? invokeFunc(time) : result;
+            }
+            function remainingWait(time) {
+                var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime, timeWaiting = wait - timeSinceLastCall;
+                return maxing ? nativeMin(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
+            }
+            function shouldInvoke(time) {
+                var timeSinceLastCall = time - lastCallTime, timeSinceLastInvoke = time - lastInvokeTime;
+                return void 0 === lastCallTime || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+            }
+            function timerExpired() {
+                var time = lodash_es_now();
+                if (shouldInvoke(time)) return trailingEdge(time);
+                timerId = setTimeout(timerExpired, remainingWait(time));
+            }
+            function trailingEdge(time) {
+                timerId = void 0;
+                if (trailing && lastArgs) return invokeFunc(time);
+                lastArgs = lastThis = void 0;
+                return result;
+            }
+            function cancel() {
+                if (void 0 !== timerId) clearTimeout(timerId);
+                lastInvokeTime = 0;
+                lastArgs = lastCallTime = lastThis = timerId = void 0;
+            }
+            function flush() {
+                return void 0 === timerId ? result : trailingEdge(lodash_es_now());
+            }
+            function debounced() {
+                var time = lodash_es_now(), isInvoking = shouldInvoke(time);
+                lastArgs = arguments;
+                lastThis = this;
+                lastCallTime = time;
+                if (isInvoking) {
+                    if (void 0 === timerId) return leadingEdge(lastCallTime);
+                    if (maxing) {
+                        clearTimeout(timerId);
+                        timerId = setTimeout(timerExpired, wait);
+                        return invokeFunc(lastCallTime);
+                    }
+                }
+                if (void 0 === timerId) timerId = setTimeout(timerExpired, wait);
+                return result;
+            }
+            debounced.cancel = cancel;
+            debounced.flush = flush;
+            return debounced;
+        }
+        const lodash_es_debounce = debounce;
+        var throttle_FUNC_ERROR_TEXT = "Expected a function";
+        function throttle(func, wait, options) {
+            var leading = true, trailing = true;
+            if ("function" != typeof func) throw new TypeError(throttle_FUNC_ERROR_TEXT);
+            if (lodash_es_isObject(options)) {
+                leading = "leading" in options ? !!options.leading : leading;
+                trailing = "trailing" in options ? !!options.trailing : trailing;
+            }
+            return lodash_es_debounce(func, wait, {
+                leading,
+                maxWait: wait,
+                trailing
+            });
+        }
+        const lodash_es_throttle = throttle;
         var __assign = function() {
             __assign = Object.assign || function __assign(t) {
                 for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -7834,6 +7787,30 @@
             };
             return __assign.apply(this, arguments);
         };
+        var cachedScrollbarWidth = null;
+        var cachedDevicePixelRatio = null;
+        if (can_use_dom) window.addEventListener("resize", (function() {
+            if (cachedDevicePixelRatio !== window.devicePixelRatio) {
+                cachedDevicePixelRatio = window.devicePixelRatio;
+                cachedScrollbarWidth = null;
+            }
+        }));
+        function scrollbarWidth() {
+            if (null === cachedScrollbarWidth) {
+                if ("undefined" === typeof document) {
+                    cachedScrollbarWidth = 0;
+                    return cachedScrollbarWidth;
+                }
+                var body = document.body;
+                var box = document.createElement("div");
+                box.classList.add("simplebar-hide-scrollbar");
+                body.appendChild(box);
+                var width = box.getBoundingClientRect().right;
+                body.removeChild(box);
+                cachedScrollbarWidth = width;
+            }
+            return cachedScrollbarWidth;
+        }
         function getElementWindow$1(element) {
             if (!element || !element.ownerDocument || !element.ownerDocument.defaultView) return window;
             return element.ownerDocument.defaultView;
@@ -7885,41 +7862,15 @@
         function classNamesToQuery$1(classNames) {
             return ".".concat(classNames.split(" ").join("."));
         }
-        var canUseDOM = !!("undefined" !== typeof window && window.document && window.document.createElement);
         var helpers = Object.freeze({
             __proto__: null,
             addClasses: addClasses$1,
-            canUseDOM,
             classNamesToQuery: classNamesToQuery$1,
             getElementDocument: getElementDocument$1,
             getElementWindow: getElementWindow$1,
             getOptions: getOptions$1,
             removeClasses: removeClasses$1
         });
-        var cachedScrollbarWidth = null;
-        var cachedDevicePixelRatio = null;
-        if (canUseDOM) window.addEventListener("resize", (function() {
-            if (cachedDevicePixelRatio !== window.devicePixelRatio) {
-                cachedDevicePixelRatio = window.devicePixelRatio;
-                cachedScrollbarWidth = null;
-            }
-        }));
-        function scrollbarWidth() {
-            if (null === cachedScrollbarWidth) {
-                if ("undefined" === typeof document) {
-                    cachedScrollbarWidth = 0;
-                    return cachedScrollbarWidth;
-                }
-                var body = document.body;
-                var box = document.createElement("div");
-                box.classList.add("simplebar-hide-scrollbar");
-                body.appendChild(box);
-                var width = box.getBoundingClientRect().right;
-                body.removeChild(box);
-                cachedScrollbarWidth = width;
-            }
-            return cachedScrollbarWidth;
-        }
         var getElementWindow = getElementWindow$1, getElementDocument = getElementDocument$1, getOptions = getOptions$1, dist_addClasses = addClasses$1, dist_removeClasses = removeClasses$1, classNamesToQuery = classNamesToQuery$1;
         var SimpleBarCore = function() {
             function SimpleBarCore(element, options) {
@@ -7930,7 +7881,6 @@
                 this.stopScrollDelay = 175;
                 this.isScrolling = false;
                 this.isMouseEntering = false;
-                this.isDragging = false;
                 this.scrollXTicking = false;
                 this.scrollYTicking = false;
                 this.wrapperEl = null;
@@ -8055,20 +8005,18 @@
                     e.stopPropagation();
                     if ("y" === _this.draggedAxis) eventOffset = e.pageY; else eventOffset = e.pageX;
                     var dragPos = eventOffset - (null !== (_h = null === (_g = track.rect) || void 0 === _g ? void 0 : _g[_this.axis[_this.draggedAxis].offsetAttr]) && void 0 !== _h ? _h : 0) - _this.axis[_this.draggedAxis].dragOffset;
-                    dragPos = "x" === _this.draggedAxis && _this.isRtl ? (null !== (_k = null === (_j = track.rect) || void 0 === _j ? void 0 : _j[_this.axis[_this.draggedAxis].sizeAttr]) && void 0 !== _k ? _k : 0) - scrollbar.size - dragPos : dragPos;
+                    dragPos = _this.isRtl ? (null !== (_k = null === (_j = track.rect) || void 0 === _j ? void 0 : _j[_this.axis[_this.draggedAxis].sizeAttr]) && void 0 !== _k ? _k : 0) - scrollbar.size - dragPos : dragPos;
                     var dragPerc = dragPos / (trackSize - scrollbar.size);
                     var scrollPos = dragPerc * (contentSize - hostSize);
                     if ("x" === _this.draggedAxis && _this.isRtl) scrollPos = (null === (_l = SimpleBarCore.getRtlHelpers()) || void 0 === _l ? void 0 : _l.isScrollingToNegative) ? -scrollPos : scrollPos;
                     _this.contentWrapperEl[_this.axis[_this.draggedAxis].scrollOffsetAttr] = scrollPos;
                 };
                 this.onEndDrag = function(e) {
-                    _this.isDragging = false;
                     var elDocument = getElementDocument(_this.el);
                     var elWindow = getElementWindow(_this.el);
                     e.preventDefault();
                     e.stopPropagation();
                     dist_removeClasses(_this.el, _this.classNames.dragging);
-                    _this.onStopScrolling();
                     elDocument.removeEventListener("mousemove", _this.drag, true);
                     elDocument.removeEventListener("mouseup", _this.onEndDrag, true);
                     _this.removePreventClickId = elWindow.setTimeout((function() {
@@ -8133,12 +8081,12 @@
                     }
                 };
                 if ("object" !== typeof this.el || !this.el.nodeName) throw new Error("Argument passed to SimpleBar must be an HTML element instead of ".concat(this.el));
-                this.onMouseMove = throttle(this._onMouseMove, 64);
-                this.onWindowResize = debounce(this._onWindowResize, 64, {
+                this.onMouseMove = lodash_es_throttle(this._onMouseMove, 64);
+                this.onWindowResize = lodash_es_debounce(this._onWindowResize, 64, {
                     leading: true
                 });
-                this.onStopScrolling = debounce(this._onStopScrolling, this.stopScrollDelay);
-                this.onMouseEntered = debounce(this._onMouseEntered, this.stopScrollDelay);
+                this.onStopScrolling = lodash_es_debounce(this._onStopScrolling, this.stopScrollDelay);
+                this.onMouseEntered = lodash_es_debounce(this._onMouseEntered, this.stopScrollDelay);
                 this.init();
             }
             SimpleBarCore.getRtlHelpers = function() {
@@ -8178,7 +8126,7 @@
                 };
             };
             SimpleBarCore.prototype.init = function() {
-                if (canUseDOM) {
+                if (can_use_dom) {
                     this.initDOM();
                     this.rtlHelpers = SimpleBarCore.getRtlHelpers();
                     this.scrollbarWidth = this.getScrollbarWidth();
@@ -8334,7 +8282,6 @@
             };
             SimpleBarCore.prototype.hideScrollbar = function(axis) {
                 if (void 0 === axis) axis = "y";
-                if (this.isDragging) return;
                 if (this.axis[axis].isOverflowing && this.axis[axis].scrollbar.isVisible) {
                     dist_removeClasses(this.axis[axis].scrollbar.el, this.classNames.visible);
                     this.axis[axis].scrollbar.isVisible = false;
@@ -8369,7 +8316,6 @@
             SimpleBarCore.prototype.onDragStart = function(e, axis) {
                 var _a;
                 if (void 0 === axis) axis = "y";
-                this.isDragging = true;
                 var elDocument = getElementDocument(this.el);
                 var elWindow = getElementWindow(this.el);
                 var scrollbar = this.axis[axis].scrollbar;
@@ -8460,7 +8406,6 @@
                 scrollbarMinSize: 25,
                 scrollbarMaxSize: 0,
                 ariaLabel: "scrollable content",
-                tabIndex: 0,
                 classNames: {
                     contentEl: "simplebar-content",
                     contentWrapper: "simplebar-content-wrapper",
@@ -8507,7 +8452,7 @@
             }
             d.prototype = null === b ? Object.create(b) : (__.prototype = b.prototype, new __);
         }
-        var _a = SimpleBarCore.helpers, dist_getOptions = _a.getOptions, simplebar_dist_addClasses = _a.addClasses, dist_canUseDOM = _a.canUseDOM;
+        var _a = SimpleBarCore.helpers, dist_getOptions = _a.getOptions, simplebar_dist_addClasses = _a.addClasses;
         var SimpleBar = function(_super) {
             __extends(SimpleBar, _super);
             function SimpleBar() {
@@ -8559,7 +8504,7 @@
                     this.wrapperEl.appendChild(this.maskEl);
                     this.wrapperEl.appendChild(this.placeholderEl);
                     this.el.appendChild(this.wrapperEl);
-                    null === (_a = this.contentWrapperEl) || void 0 === _a ? void 0 : _a.setAttribute("tabindex", this.options.tabIndex.toString());
+                    null === (_a = this.contentWrapperEl) || void 0 === _a ? void 0 : _a.setAttribute("tabindex", "0");
                     null === (_b = this.contentWrapperEl) || void 0 === _b ? void 0 : _b.setAttribute("role", "region");
                     null === (_c = this.contentWrapperEl) || void 0 === _c ? void 0 : _c.setAttribute("aria-label", this.options.ariaLabel);
                 }
@@ -8605,10 +8550,8 @@
                         }));
                     }));
                     mutation.removedNodes.forEach((function(removedNode) {
-                        var _a;
-                        if (1 === removedNode.nodeType) if ("init" === removedNode.getAttribute("data-simplebar")) !document.documentElement.contains(removedNode) && (null === (_a = SimpleBar.instances.get(removedNode)) || void 0 === _a ? void 0 : _a.unMount()); else Array.prototype.forEach.call(removedNode.querySelectorAll('[data-simplebar="init"]'), (function(el) {
-                            var _a;
-                            !document.documentElement.contains(el) && (null === (_a = SimpleBar.instances.get(el)) || void 0 === _a ? void 0 : _a.unMount());
+                        if (1 === removedNode.nodeType) if ("init" === removedNode.getAttribute("data-simplebar")) SimpleBar.instances.has(removedNode) && !document.documentElement.contains(removedNode) && SimpleBar.instances.get(removedNode).unMount(); else Array.prototype.forEach.call(removedNode.querySelectorAll('[data-simplebar="init"]'), (function(el) {
+                            SimpleBar.instances.has(el) && !document.documentElement.contains(el) && SimpleBar.instances.get(el).unMount();
                         }));
                     }));
                 }));
@@ -8616,7 +8559,7 @@
             SimpleBar.instances = new WeakMap;
             return SimpleBar;
         }(SimpleBarCore);
-        if (dist_canUseDOM) SimpleBar.initHtmlApi();
+        if (can_use_dom) SimpleBar.initHtmlApi();
         let addWindowScrollEvent = false;
         setTimeout((() => {
             if (addWindowScrollEvent) {

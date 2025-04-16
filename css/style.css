@@ -9792,18 +9792,15 @@ h2 span {
   left: 0;
   right: 0;
   min-height: 10px;
-  background: transparent;
-  border-radius: 24px;
 }
 
 .simplebar-scrollbar:before {
   position: absolute;
   content: "";
-  background: #c7c7cc;
-  width: 4px;
-  border-radius: 24px;
-  left: 0;
-  right: 0;
+  background: black;
+  border-radius: 7px;
+  left: 2px;
+  right: 2px;
   opacity: 0;
   -webkit-transition: opacity 0.2s 0.5s linear;
   -o-transition: opacity 0.2s 0.5s linear;
@@ -9822,15 +9819,14 @@ h2 span {
 
 .simplebar-track.simplebar-vertical {
   top: 0;
-  width: 4px;
-  border-radius: 24px;
+  width: 11px;
 }
 
 .simplebar-scrollbar:before {
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
 }
 
 .simplebar-track.simplebar-horizontal {
