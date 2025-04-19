@@ -5691,7 +5691,6 @@ h2 span {
 }
 
 .benefits {
-  position: relative;
   padding: 0px 0px 56px 0px;
 }
 
@@ -5762,7 +5761,7 @@ h2 span {
 
 .benefits__image img {
   width: 100%;
-  height: auto;
+  height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 24px;
@@ -13706,6 +13705,10 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
   .main-sales .products__filter {
     margin: 0px 0px 24px 0px;
     padding: 0px 0px 0px 0px;
+  }
+
+  .main-sales .filter__title:last-child {
+    padding: 4px;
   }
 
   .main-sales .products__body {
