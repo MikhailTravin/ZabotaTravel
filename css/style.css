@@ -5691,6 +5691,7 @@ h2 span {
 }
 
 .benefits {
+  position: relative;
   padding: 0px 0px 56px 0px;
 }
 
@@ -5761,7 +5762,7 @@ h2 span {
 
 .benefits__image img {
   width: 100%;
-  height: 100%;
+  height: auto;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 24px;
@@ -9626,18 +9627,18 @@ h2 span {
   position: relative;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   -ms-flex-line-pack: start;
-      align-content: flex-start;
+  align-content: flex-start;
   -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
 }
 
 .simplebar-wrapper {
@@ -9666,7 +9667,7 @@ h2 span {
 .simplebar-offset {
   direction: inherit !important;
   -webkit-box-sizing: inherit !important;
-          box-sizing: inherit !important;
+  box-sizing: inherit !important;
   resize: none !important;
   position: absolute;
   top: 0;
@@ -9681,7 +9682,7 @@ h2 span {
 .simplebar-content-wrapper {
   direction: inherit;
   -webkit-box-sizing: border-box !important;
-          box-sizing: border-box !important;
+  box-sizing: border-box !important;
   position: relative;
   display: block;
   height: 100%;
@@ -9718,7 +9719,7 @@ h2 span {
 
 .simplebar-height-auto-observer-wrapper {
   -webkit-box-sizing: inherit !important;
-          box-sizing: inherit !important;
+  box-sizing: inherit !important;
   height: 100%;
   width: 100%;
   max-width: 1px;
@@ -9731,17 +9732,17 @@ h2 span {
   margin: 0;
   pointer-events: none;
   -webkit-box-flex: inherit;
-      -ms-flex-positive: inherit;
-          flex-grow: inherit;
+  -ms-flex-positive: inherit;
+  flex-grow: inherit;
   -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
   -ms-flex-preferred-size: 0;
-      flex-basis: 0;
+  flex-basis: 0;
 }
 
 .simplebar-height-auto-observer {
   -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  box-sizing: inherit;
   display: block;
   opacity: 0;
   position: absolute;
@@ -9810,11 +9811,11 @@ h2 span {
 .simplebar-scrollbar.simplebar-visible:before {
   opacity: 0.5;
   -webkit-transition-delay: 0s;
-       -o-transition-delay: 0s;
-          transition-delay: 0s;
+  -o-transition-delay: 0s;
+  transition-delay: 0s;
   -webkit-transition-duration: 0s;
-       -o-transition-duration: 0s;
-          transition-duration: 0s;
+  -o-transition-duration: 0s;
+  transition-duration: 0s;
 }
 
 .simplebar-track.simplebar-vertical {
@@ -13705,10 +13706,6 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item:not(.lg-zoomable).lg-co
   .main-sales .products__filter {
     margin: 0px 0px 24px 0px;
     padding: 0px 0px 0px 0px;
-  }
-
-  .main-sales .filter__title:last-child {
-    padding: 4px;
   }
 
   .main-sales .products__body {
