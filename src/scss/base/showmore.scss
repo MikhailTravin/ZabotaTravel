@@ -1,0 +1,26 @@
+[data-showmore] {
+}
+[data-showmore-content] {
+}
+[data-showmore-button] {
+	span {
+		font-weight: 500;
+		font-size: 13px;
+		line-height: 138%;
+		color: $black_secondary;
+		border-bottom: 1px solid $black_secondary;
+		transition: all 0.3s ease 0s;
+		&:hover {
+			border-bottom: 1px solid transparent;
+		}
+		&:last-child {
+			display: none;
+		}
+		._showmore-active & {
+			display: none;
+			&:last-child {
+				display: block;
+			}
+		}
+	}
+}

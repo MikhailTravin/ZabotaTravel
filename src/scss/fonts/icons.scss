@@ -1,0 +1,71 @@
+%ic {
+	font-family: "icons";
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+[class*="_icon-"] {
+	&:before {
+		@extend %ic;
+		display: block;
+	}
+}
+
+._icon-paperclip:before {
+	content: "\e911";
+}
+._icon-chek-3:before {
+	content: "\e90f";
+}
+._icon-arrow-3:before {
+	content: "\e910";
+}
+._icon-hospital:before {
+	content: "\e90c";
+}
+._icon-building:before {
+	content: "\e90d";
+}
+._icon-calendar:before {
+	content: "\e90e";
+}
+._icon-zipper:before {
+	content: "\e907";
+}
+._icon-check-2:before {
+	content: "\e908";
+}
+._icon-check:before {
+	content: "\e909";
+}
+._icon-arrow:before {
+	content: "\e90a";
+}
+._icon-arrow-2:before {
+	content: "\e90b";
+}
+._icon-close:before {
+	content: "\e906";
+}
+._icon-heart-active:before {
+	content: "\e900";
+}
+._icon-heart:before {
+	content: "\e901";
+}
+._icon-telegram:before {
+	content: "\e902";
+}
+._icon-whatsapp:before {
+	content: "\e903";
+}
+._icon-phone:before {
+	content: "\e904";
+}
+._icon-search:before {
+	content: "\e905";
+}

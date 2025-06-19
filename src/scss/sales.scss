@@ -1,0 +1,63 @@
+.main-sales {
+    .benefits {
+        padding: 56px 0px 56px 0px;
+        @media (max-width: $mobile) {
+            padding: 40px 0px 40px 0px;
+        }
+    }
+    //
+    .products__filter {
+        @media (max-width: $pc) {
+            margin: 0px -16px 24px -16px;
+            padding: 0px 16px;
+            width: calc(100% + 32px);
+            overflow-y: hidden;
+            overflow-x: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @media (max-width: $mobile) {
+            margin: 0px 0px 24px 0px;
+            padding: 0px 0px 0px 0px;
+        }
+    }
+    .filter__navigation {
+        @media (max-width: $pc) {
+            width: 1176px;
+            flex-wrap: wrap;
+            margin: -4px;
+        }
+    }
+    .filter__title {
+        @media (max-width: $pc) {
+            padding: 4px;
+        }
+    }
+    .products__body {
+        width: 100%;
+        @media (max-width: $mobile) {
+            flex-wrap: wrap;
+            margin: -12px -8px;
+            padding: 0px 0px 0px 0px;
+            width: auto;
+        }
+        @media (max-width: 600px) {
+            flex-direction: column;
+            margin: -12px 0px;
+            width: 100%;
+        }
+    }
+    .products__column {
+        @media (max-width: $pc) {
+            flex: 0 1 33.3333%;
+        }
+        @media (max-width: $mobile) {
+            flex: 0 1 50%;
+            padding: 12px 8px;
+        }
+        @media (max-width: 600px) {
+            flex: 1 1 auto;
+            padding: 12px 0px;
+        }
+    }
+}

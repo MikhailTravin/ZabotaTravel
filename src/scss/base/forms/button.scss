@@ -1,0 +1,59 @@
+//<BUTTONS (a.btn+tab)>
+// Снипет (HTML): btn
+
+.button-colar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-radius: 16px;
+	padding: 12px 16px;
+	background: $colar;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 133%;
+	letter-spacing: -0.01em;
+	color: $white;
+	transition: all 0.3s ease 0s;
+	&:hover {
+		background: #d9606a;
+	}
+}
+
+.button-mint {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-radius: 16px;
+	padding: 12px 28px;
+	background: $mint;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 133%;
+	letter-spacing: -0.01em;
+	color: $mainColor;
+	transition: all 0.3s ease 0s;
+	&:hover {
+		background: #5ac0b1;
+	}
+}
+
+.button-transparent {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-radius: 16px;
+	padding: 12px 16px;
+	border: 1px solid $grey_3;
+	background: transparent;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 133%;
+	letter-spacing: -0.01em;
+	transition: all 0.3s ease 0s;
+	&:hover {
+		background: $grey_2;
+	}
+}

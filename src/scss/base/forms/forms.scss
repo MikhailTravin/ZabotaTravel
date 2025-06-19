@@ -1,0 +1,271 @@
+//<FORM>
+// Снипет (HTML):
+
+.form {
+	border-radius: 24px;
+	padding: 32px;
+	background: $grey_1;
+	@media (max-width: $mobile) {
+		padding: 32px 16px;
+	}
+	// .form__content
+	&__content {
+		margin: 0px 0px 20px 0px;
+	}
+	// .form__titles
+	&__titles {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		cursor: pointer;
+		width: 100%;
+		border: 1px solid $grey_2;
+		border-radius: 16px;
+		padding: 12px;
+		background: $grey_1;
+	}
+	// .form__label
+	&__label {
+		font-weight: 500;
+		font-size: 13px;
+		line-height: 138%;
+		color: $black_secondary;
+		margin: 0px 0px 4px 0px;
+	}
+	// .form__value
+	&__value {
+		white-space: nowrap;
+		font-weight: 500;
+		font-size: 15px;
+		line-height: 133%;
+		letter-spacing: -0.01em;
+		overflow: auto;
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+	// .form__body
+	&__body {
+		&.body-filter-tabs {
+			width: 100%;
+		}
+		.body-filter-tabs__simplebar {
+			height: 100%;
+		}
+	}
+	// .form__title
+	&__title {
+		font-weight: 600;
+		font-size: 17px;
+		line-height: 141%;
+		letter-spacing: -0.01em;
+		text-align: center;
+		margin: 0px 0px 20px 0px;
+	}
+	// .form__inputs
+	&__inputs {
+		margin: -4px 0px;
+	}
+	// .form__input
+	&__input {
+		padding: 4px 0px;
+		position: relative;
+		label {
+			display: block;
+			font-weight: 500;
+			font-size: 13px;
+			line-height: 138%;
+			color: $mainColor;
+			margin: 0px 0px 4px 0px;
+			span {
+				color: $colar;
+			}
+		}
+		input {
+			width: 100%;
+			border: 1px solid $grey_2;
+			border-radius: 16px;
+			padding: 12px;
+			font-weight: 500;
+			font-size: 15px;
+			line-height: 133%;
+			letter-spacing: -0.01em;
+			&::placeholder {
+				color: $black_secondary;
+			}
+			&._form-error {
+				border: 1px solid $red;
+			}
+		}
+	}
+	// .form__icon
+	&__icon {
+		margin: 0px 0px 0px 10px;
+		&::before {
+			font-size: 9px;
+			color: $grey_3;
+		}
+		&._icon-calendar {
+			&::before {
+				font-size: 19px;
+			}
+		}
+	}
+	// .form__calendar
+	&__calendar {
+		.calendar__content {
+			background: $white;
+		}
+	}
+	// .form__buttons
+	&__buttons {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 16px 0px 0px 0px;
+		span {
+			margin: 8px 0px 0px 0px;
+			width: 100%;
+			font-weight: 500;
+			font-size: 11px;
+			line-height: 127%;
+			text-align: center;
+			color: $black_secondary;
+			a {
+				border-bottom: 1px solid $black_secondary;
+				transition: all 0.3s ease 0s;
+				&:hover {
+					border-bottom: 1px solid transparent;
+				}
+			}
+		}
+	}
+	// .form__button
+	&__button {
+		width: 100%;
+	}
+	// .form__contacts
+	&__contacts {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		margin: -10px;
+	}
+	// .form__phone
+	&__phone {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 10px;
+		a {
+			text-align: center;
+			font-weight: 600;
+			font-size: 17px;
+			line-height: 141%;
+			letter-spacing: -0.01em;
+		}
+		span {
+			text-align: center;
+			font-weight: 500;
+			font-size: 12px;
+			line-height: 133%;
+			color: $black_secondary;
+		}
+	}
+	// .form__socials
+	&__socials {
+		display: flex;
+		margin: -4px;
+		padding: 10px;
+	}
+	// .form__social
+	&__social {
+		flex: 0 0 44px;
+		padding: 4px;
+		a {
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: linear-gradient(180deg, #2aabee 0%, #229ed9 100%);
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			&::before {
+				font-size: 24px;
+				color: $white;
+				position: relative;
+				z-index: 3;
+			}
+			&._icon-whatsapp {
+				background: linear-gradient(0deg, #1faf38 0%, #60d669 100%);
+				&::before {
+					font-size: 28px;
+				}
+			}
+		}
+	}
+	// .form__error
+	&__error {
+		color: $red;
+		font-weight: 500;
+		font-size: 13px;
+		line-height: 138%;
+		margin: 2px 0px 0px 12px;
+	}
+	// .form__text
+	&__text {
+		font-weight: 500;
+		font-size: 11px;
+		line-height: 127%;
+		color: $black_secondary;
+		margin: 8px 0px 0px 0px;
+		@media (max-width: $mobile) {
+			text-align: center;
+		}
+		a {
+			border-bottom: 1px solid $black_secondary;
+			transition: all 0.3s ease 0s;
+			&:hover {
+				border-bottom: 1px solid transparent;
+			}
+		}
+	}
+}
+
+//</FORM>
+
+// <BUTTONS>
+// Снипет (HTML): btn
+@import "button";
+
+// <INPUTS>
+// Снипет (HTML): inp
+// @import "input";
+
+// <CHECK>
+// Снипет (HTML): chk
+@import "checkbox";
+
+// <RADIO>
+// Снипет (HTML): opt
+@import "radio";
+
+// <SELECT>
+// Снипет (HTML): sel
+@import "select";
+
+// <RATING>
+// Снипет (HTML): rating
+@import "rating";
+
+// <QUANTITY>
+// Снипет (HTML): qa
+@import "quantity";
+
+// <RANGE>
+// Снипет (HTML):
+// @import "range";

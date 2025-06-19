@@ -1,0 +1,99 @@
+//<QUANTITY>
+// Снипет (HTML): qa
+.quantitys {
+	flex: 1 1 auto;
+	// .quantitys__body
+	&__body {
+	}
+	// .quantitys__childrens
+	&__childrens {
+		margin: 24px 0px 0px 0px;
+		.quantitys__title {
+			text-align: right;
+		}
+	}
+	// .quantitys__item
+	&__item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0px 0px 24px 0px;
+		&:last-child {
+			margin: 0px 0px 0px 0px;
+		}
+	}
+	// .quantitys__title
+	&__title {
+		flex: 1 1 auto;
+		font-weight: 500;
+		font-size: 15px;
+		line-height: 133%;
+		letter-spacing: -0.01em;
+		margin: 0px 24px 0px 0px;
+	}
+	// .quantitys__quantity
+	&__quantity {
+	}
+}
+
+.quantity {
+	flex: 0 0 124px;
+	width: 124px;
+	height: 36px;
+	display: flex;
+	// .quantity__button
+	&__button {
+		flex: 0 0 36px;
+		position: relative;
+		border-radius: 8px;
+		padding: 8px;
+		background: $grey_1;
+		cursor: pointer;
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transition: all 0.3s ease 0s;
+			margin: -1.5px 0px 0px -8px;
+			background-color: $mainColor;
+			width: 16px;
+			height: 1.5px;
+		}
+		@media (any-hover: hover) {
+			&:hover {
+				&::before,
+				&::after {
+					background-color: rgba(0, 0, 0, 0.5);
+				}
+			}
+		}
+		// .quantity__button_plus
+		&_plus {
+			&::before {
+				transform: rotate(-90deg);
+			}
+		}
+		// .quantity__button_minus
+		&_minus {
+		}
+	}
+	// .quantity__input
+	&__input {
+		flex: 1 0 44px;
+		margin: 0px 4px;
+		input {
+			height: 100%;
+			width: 100%;
+			font-weight: 500;
+			font-size: 17px;
+			line-height: 141%;
+			letter-spacing: -0.01em;
+			text-align: center;
+			background: transparent !important;
+			border-radius: 0px !important;
+			border: none !important;
+		}
+	}
+}
