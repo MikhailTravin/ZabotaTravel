@@ -1062,6 +1062,30 @@
             margin: 16px 0px 0px 0px;
         }
     }
+
+    // .help__photos
+    &__photos {
+        display: flex;
+        margin: 0px 0px 0px 20px;
+        @media (max-width: $mobile) {
+            margin: 24px 0px 0px 0px;
+        }
+        img {
+            border: 3px solid $white;
+            border-radius: 50%;
+            display: block;
+            width: 92px;
+            height: 92px;
+            margin: 0px 0px 0px -28px;
+            &:first-child {
+                margin: 0px 0px 0px 0px;
+            }
+            @media (max-width: 389px){
+                  width: 80px;
+                  height: 80px;
+            }
+        }
+    }
 }
 
 //========================================================================================================================================================

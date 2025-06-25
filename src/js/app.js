@@ -103,6 +103,9 @@ import "./files/sliders.js";
 */
 import './files/scroll/simplebar.js';
 
+// Плавная навигация по странице
+flsScroll.pageNavigation();
+
 // Функции работы скроллом
 import * as flsScroll from "./files/scroll/scroll.js";
 

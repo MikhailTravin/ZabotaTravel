@@ -113,6 +113,7 @@ const favourites = document.querySelectorAll('.favourites');
 if (favourites) {
     favourites.forEach(favourite => {
         favourite.addEventListener("click", function (e) {
+            e.preventDefault();
             favourite.classList.toggle('_active')
         });
     });
