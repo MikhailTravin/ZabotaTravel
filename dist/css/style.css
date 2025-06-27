@@ -3556,10 +3556,6 @@ h4 {
   background: #ffffff;
 }
 
-.item-products__content:hover .item-products__title {
-  color: #ff717d;
-}
-
 .item-products__top {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
@@ -3579,6 +3575,10 @@ h4 {
   -webkit-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+}
+
+.item-products__title:hover {
+  color: #ff717d;
 }
 
 .item-products__city {
@@ -9769,6 +9769,9 @@ h4 {
 .main-blog .item-products__content {
   padding: 16px;
   height: 37%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .main-blog .item-products__images {
