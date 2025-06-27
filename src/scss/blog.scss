@@ -1,10 +1,4 @@
 .main-blog {
-    .products__item {
-        transition: opacity 0.3s;
-        &:hover {
-            opacity: 0.8;
-        }
-    }
     .products__column {
         padding: 0px 0px 0px 0px;
         @media (max-width: $tablet) {
@@ -14,6 +8,7 @@
     .item-products__content {
         padding: 16px;
         height: 37%;
+        flex: 1 1 auto;
         @media (max-width: $tablet) {
             height: 100%;
         }
